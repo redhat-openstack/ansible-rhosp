@@ -1,0 +1,4 @@
+- name: Install RHOSP
+  hosts: undercloud
+  roles:
+    - { role: setup_undercloud }
