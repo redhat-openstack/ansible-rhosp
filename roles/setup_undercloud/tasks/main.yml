@@ -9,15 +9,15 @@
 
 # At this point, Ansible doesn't support 'yum localinstall' so this will not work using 'yum' module
 - name: Install release tool
-  shell: "yum localinstall http://rhos-release.virt.bos.redhat.com/repos/rhos-release/rhos-release-latest.noarch.rpm"
+  shell: "yum localinstall -y http://rhos-release.virt.bos.redhat.com/repos/rhos-release/rhos-release-latest.noarch.rpm"
 
 - name: Install RHOSP puddle repos (execute rhos-release)
   shell: "rhos-release {{ rhosp_version }}-director"
-  when: "{{ repo_version }} == puddle"
+  when: repo_version == 'puddle'
 
 - name: Install RHOSP poodle repos (execute rhos-release)
   shell: "rhos-release -d {{ rhosp_version }}-director"
-  when: "{{ repo_version }} == poodle"
+  when: repo_version == 'poodle'
 
 - name: Update all packages on undercloud
   yum:
@@ -39,16 +39,12 @@
     dest="/home/stack/clapper"
 
 - name: Copy instackenv.json to stack home dir
-  shell: "cp {{ item }} /home/stack/"
-  with_first_found:
-    - '/root/instackenv.json'
-    - '/etc/instackenv.json'
-    - 'instackenv.json'
-    
+  shell: "cp instackenv.json /home/stack/"
+
 - name: Validate instackenv.json
   args:
     chdir: "/home/stack"
-  shell: "python clapper/instackenv-validator.py -f {{ instack_user_home }}/instackenv.json"
+  shell: "python clapper/instackenv-validator.py -f /home/stack/instackenv.json"
   register: instackenv_validator_result
 
 - name: Fail run if instackenv validation failed
