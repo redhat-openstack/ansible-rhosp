@@ -1,0 +1,64 @@
+- name: Create stack user
+  user:
+    name=stack
+    password=stack
+    state=present
+
+- name: Ensure no repos are installed on the host
+  shell: rm -rf /etc/yum.repos.d/*
+
+- name: Install release tool
+  yum:
+   name="http://rhos-release.virt.bos.redhat.com/repos/rhos-release/rhos-release-latest.noarch.rpm"
+   state=present
+
+- name: Install RHOSP puddle repos (execute rhos-release)
+  shell: "rhos-release {{ rhosp_version }}-director"
+  when: "{{ repo_version }}" is puddle
+
+- name: Install RHOSP poodle repos (execute rhos-release)
+  shell: "rhos-release -d {{ rhosp_version }}-director"
+  when: "{{ repo_version }}" is poodle
+
+- name: Update all packages on undercloud
+  yum:
+    name=*
+    state=latest
+
+- name: Install IPMI and git
+  yum:
+    name="{{ item }}"
+    state=latest
+  with_items:
+    - git
+    - OpenIPMI
+    - OpenIPMI-tools
+
+- name: Download instackenv validator
+  git:
+    repo="https://github.com/rthallisey/clapper.git"
+    dest="/home/stack/clapper"
+
+- name: Copy instackenv.json to stack home dir
+  shell: "cp {{ item }} /home/stack/"
+  with_first_found:
+    - '/root/instackenv.json'
+    - '/etc/instackenv.json'
+    - 'instackenv.json'
+    
+- name: Validate instackenv.json
+  args:
+    chdir: "/home/stack"
+  shell: "python clapper/instackenv-validator.py -f {{ instack_user_home }}/instackenv.json
+  register: instackenv_validator_result
+
+- name: Fail run if instackenv validation failed
+  fail:
+    msg="instackenv.json validation failed!"
+  when: instackenv_validator_result.stdout.find("SUCCESS") == -1
+
+- name: Get the number of overcloud nodes
+  shell: >
+    export IP_LENGTH=(`cat /home/stack/instackenv.json | grep -o 'pm_addr.*' | cut -f2-  -d':' | wc -l`);
+    echo $(($IP_LENGTH))
+  register: overcloud_nodes_count

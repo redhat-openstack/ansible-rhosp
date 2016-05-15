@@ -22,7 +22,8 @@ Install RHOSP
 
        vi ansible-rhosp.cfg
 
-       version: 9
+       rhosp_version: 9
+       repo_version: poodle
 
 #. Run!::
 
