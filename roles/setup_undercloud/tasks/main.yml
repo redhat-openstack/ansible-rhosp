@@ -7,18 +7,17 @@
 - name: Ensure no repos are installed on the host
   shell: rm -rf /etc/yum.repos.d/*
 
+# At this point, Ansible doesn't support 'yum localinstall' so this will not work using 'yum' module
 - name: Install release tool
-  yum:
-   name="http://rhos-release.virt.bos.redhat.com/repos/rhos-release/rhos-release-latest.noarch.rpm"
-   state=present
+  shell: "yum localinstall http://rhos-release.virt.bos.redhat.com/repos/rhos-release/rhos-release-latest.noarch.rpm"
 
 - name: Install RHOSP puddle repos (execute rhos-release)
   shell: "rhos-release {{ rhosp_version }}-director"
-  when: "{{ repo_version }}" is puddle
+  when: "{{ repo_version }} == puddle"
 
 - name: Install RHOSP poodle repos (execute rhos-release)
   shell: "rhos-release -d {{ rhosp_version }}-director"
-  when: "{{ repo_version }}" is poodle
+  when: "{{ repo_version }} == poodle"
 
 - name: Update all packages on undercloud
   yum:
@@ -49,16 +48,16 @@
 - name: Validate instackenv.json
   args:
     chdir: "/home/stack"
-  shell: "python clapper/instackenv-validator.py -f {{ instack_user_home }}/instackenv.json
+  shell: "python clapper/instackenv-validator.py -f {{ instack_user_home }}/instackenv.json"
   register: instackenv_validator_result
 
 - name: Fail run if instackenv validation failed
   fail:
-    msg="instackenv.json validation failed!"
-  when: instackenv_validator_result.stdout.find("SUCCESS") == -1
+    msg="istackenv.json validation failed!"
+  when: instackenv_validator_result.stdout.find('SUCCESS') == -1
 
 - name: Get the number of overcloud nodes
-  shell: >
+  shell: |
     export IP_LENGTH=(`cat /home/stack/instackenv.json | grep -o 'pm_addr.*' | cut -f2-  -d':' | wc -l`);
     echo $(($IP_LENGTH))
   register: overcloud_nodes_count
