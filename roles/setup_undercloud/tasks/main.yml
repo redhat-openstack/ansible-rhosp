@@ -54,6 +54,11 @@
     msg="istackenv.json validation failed!"
   when: instackenv_validator_result.stdout.find('SUCCESS') == -1
 
+- name: Ensure /etc/hosts includes localhost definition
+  lineinfile:
+    dest=/etc/hosts
+    line="127.0.0.1   localhost localhost.localhost"
+
 - name: Get the number of overcloud nodes
   shell: |
     export IP_LENGTH=(`cat /home/stack/instackenv.json | grep -o 'pm_addr.*' | cut -f2-  -d':' | wc -l`);

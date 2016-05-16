@@ -1,0 +1,25 @@
+- name: Check if undercloud.conf exists
+  stat:
+    path="/usr/share/instack-undercloud/undercloud.conf.sample"
+  register: undercloud_conf
+
+- block:
+  vars:
+    undercloud_conf_path='/home/stack/undercloud.conf'
+
+    - name: Copy undercloud.conf to stack home dir
+      shell: cp /usr/share/instack-undercloud/undercloud.conf.sample
+
+    - name: Add 'local_interface' to undercloud.conf
+      lineinfile:
+        dest="{{ undercloud_conf_path }}"
+        regexp=^#local_interface
+        line=local_interface=eth1
+
+    - name: Add 'network_cidr' to undercloud.conf
+      lineinfile:
+        dest="{{ undercloud_conf_path }}"
+        regexp=^#network_cidr
+        line=network_cidr=192.168.0.0/24
+
+  when: undercloud_conf.stat.exists

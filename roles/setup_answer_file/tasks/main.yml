@@ -4,20 +4,22 @@
   register: answer_file
 
 - block:
+  vars:
+    answer_file_path='/home/stack/instack.answers'
   
   - name: Copy answer file to stack home directory
-    shell: cp cp /usr/share/instack-undercloud/instack.answers.sample /home/stack/instack.answers
+    shell: "cp /usr/share/instack-undercloud/instack.answers.sample {{ answer_file_path }}"
 
   - name: Add 'LOCAL_INTERFACE' to answer file
     lineinfile:
-      dest="/home/stack/instack.answers"
+      dest="{{ answer_file_path }}"
       regexp=^LOCAL_INTERFACE
       line=LOCAL_INTERFACE=eth1
 
   - name: Add 'NETWORK_GATEWAY' to answer file
     lineinfile:
-     dest="/home/stack/instack.answers"
+     dest="{{ answer_file_path }}"
      regexp=^NETWORK_GATEWAY
      line=NETWORK_GATEWAY=192.0.2.1
 
-when: answer_file.stat.exists
+  when: answer_file.stat.exists 
