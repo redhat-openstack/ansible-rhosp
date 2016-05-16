@@ -1,0 +1,26 @@
+- name: Copy stackrc and tripleo-undercloud-password to stack home dir
+  shell: "cp /root/{{ item }} /home/stack/{{ item }}"
+  with_items:
+    - tripleo-undercloud-passwords
+    - stackrc
+
+- name: Chown copied files
+  shell: "chown stack:stack /home/stack/{{ item }}"
+  with_items:
+    - tripleo-undercloud-passwords
+    - stackrc
+
+- name: Update neutron ports quota
+  shell: >
+    source /home/stack/stackrc;
+    neutron quota-update --port -1
+
+# Workarounds for bug #1246525
+- name: Disable HAproxy check in config file
+  replace:
+    dest=dest=/etc/haproxy/haproxy.cfg
+    regexp='(listen ironic\n.*\n.*)\n.*option h    ttpchk GET \/'
+    replace='\1'
+
+- name: Restart HAproxy service
+  shell: systemctl restart haproxy

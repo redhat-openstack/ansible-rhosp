@@ -1,4 +1,6 @@
-- name: Install RHOSP
+# Undercloud
+# ----------
+- name: Prepare undercloud for RHOSP installation
   hosts: undercloud
   vars:
     ansible_ssh_user: root
@@ -6,3 +8,20 @@
     - { role: setup_undercloud }
     - { role: setup_answer_file }
     - { role: setup_undercloud_conf }
+
+- name: Install undercloud
+  hosts: undercloud
+  vars:
+    ansible_ssh_user: stack
+  roles:
+    - { role: install_undercloud }
+
+- name: Post undercloud installation
+  hosts: undercloud
+  vars:
+    ansible_ssh_user: root
+  roles:
+    - { role: post_undercloud_install }
+
+# Overcloud
+# ---------
