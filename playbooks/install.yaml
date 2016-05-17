@@ -6,6 +6,7 @@
     ansible_ssh_user: root
   roles:
     - { role: setup_undercloud }
+    - { role: setup_stack_user }
     - { role: setup_answer_file }
     - { role: setup_undercloud_conf }
 

@@ -1,9 +1,3 @@
-- name: Create stack user
-  user:
-    name=stack
-    password=stack
-    state=present
-
 - name: Ensure no repos are installed on the host
   shell: rm -rf /etc/yum.repos.d/*
 

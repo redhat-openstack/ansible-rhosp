@@ -1,0 +1,64 @@
+- name: Create 'stack' user
+  user:
+    name=stack
+    password=stack
+    state=present
+
+- name: Add stack to sudoers
+  lineinfile:
+    dest=/etc/sudoers
+    line="stack ALL=(root) NOPASSWD:ALL"
+
+- name: Create ~stack/.ssh
+  file:
+    path=/home/stack/.ssh
+    mode=0700
+    owner=stack
+    group=stack
+    state=directory
+
+- name: Copy /root/.ssh content to /home/stack/.ssh
+  shell: cp /root/.ssh/* /home/stack/.ssh/
+
+- name: Set permissions for authorized_keys and private key
+  file:
+    path="{{ item }}"
+    mode=0600
+    owner=stack
+    group=stack
+  with_items:
+    - "/home/stack/.ssh/authorized_keys"
+    - "/home/stack/.ssh/id_rsa"
+
+- name: Set permissions for public key
+  file:
+    path="/home/stack/.ssh/id_rsa.pub"
+    mode=0644
+    owner=stack
+    group=stack
+
+- name: Restore SElinux security context for ~stack/.ssh directory
+  shell: restorecon -R /home/stack/.ssh
+
+- name: Copy .bashrc and .bash_profile from root to stack user
+  shell: "cp /root/{{ item }} /home/stack/"
+  with_items:
+    - ".bashrc"
+    - ".bash_profile"
+
+- name: Set permissions and owner for .bashrc and .bash_profile
+  file:
+    path="/home/stack/{{ item }}"
+    mode=0755
+    owner=stack
+    group=stack
+  with_items:
+    - ".bashrc"
+    - ".bash_profile"
+
+- name: Set owner and group for /home/stack
+  file:
+    path="/home/stack"
+    recurse=yes
+    owner=stack
+    group=stack

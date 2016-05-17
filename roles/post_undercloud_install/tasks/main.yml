@@ -16,11 +16,18 @@
     neutron quota-update --port -1
 
 # Workarounds for bug #1246525
+- name: Check if HAproxy is installed on the undercloud
+  stat:
+    path=/etc/haproxy/haproxy.cfg
+  register: haproxy_config
+   
 - name: Disable HAproxy check in config file
   replace:
     dest=dest=/etc/haproxy/haproxy.cfg
     regexp='(listen ironic\n.*\n.*)\n.*option h    ttpchk GET \/'
     replace='\1'
+  when: haproxy_config.stat.exists
 
 - name: Restart HAproxy service
   shell: systemctl restart haproxy
+  when: haproxy_config.stat.exists
