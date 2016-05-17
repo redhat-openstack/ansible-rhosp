@@ -33,5 +33,6 @@
     ansible_ssh_user: stack
   roles:
     - { role: overcloud/setup }
+    - { role: overcloud/setup_images }
     - { role: overcloud/register_nodes }
     - { role: overcloud/install }

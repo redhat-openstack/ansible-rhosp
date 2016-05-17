@@ -1,0 +1,27 @@
+- name: Create overcloud_images directory
+  file:
+    path=/home/stack/overcloud_images
+    state=directory
+
+- name: Obtain overcloud images
+  shell: "wget --quiet -c -O /home/stack/overcloud_images/{{ item }}.tar http://rhos-release.virt.bos.redhat.com/puddle-images/latest-{{ rhosp_version }}.0-images/{{ item }}.tar"
+  args:
+    chdir: "/home/stack/overcloud_images"
+  with_items:
+    - 'ironic-python-agent.tar'
+    - 'overcloud-full.tar'
+
+- name: Extract tar files
+  shell: "tar -xvf {{ item }}.tar"
+  args:
+    chdir: "/home/stack/overcloud_images"
+  with_items:
+    - 'ironic-python-agent.tar'
+    - 'overcloud-full.tar'
+
+- name: Upload images to Glance
+  shell: >
+    source /home/stack/stackrc;
+    openstack overcloud image upload 
+  args:
+    chdir: "/home/stack/overcloud_images"

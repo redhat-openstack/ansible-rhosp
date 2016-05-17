@@ -28,6 +28,7 @@
     - OpenIPMI-tools
     - python-tripleoclient
     - python-passlib
+    - wget
 
 - name: Download instackenv validator
   git:

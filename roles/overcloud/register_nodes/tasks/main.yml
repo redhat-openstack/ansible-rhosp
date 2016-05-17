@@ -14,4 +14,4 @@
   register: kernel_assign_result
   retries: 10
   delay: 10
-  until: kernel_assing_result.rc == 0
+  until: kernel_assign_result.rc == 0
