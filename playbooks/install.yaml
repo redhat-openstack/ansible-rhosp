@@ -26,3 +26,12 @@
 
 # Overcloud
 # ---------
+
+- name: Install Overcloud
+  hosts: undercloud
+  vars:
+    ansible_ssh_user: stack
+  roles:
+    - { role: overcloud/setup }
+    - { role: overcloud/register_nodes }
+    - { role: overcloud/install }

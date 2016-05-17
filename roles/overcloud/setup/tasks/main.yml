@@ -1,0 +1,8 @@
+- name: Copy TripleO Heat templates to stack home dir
+  shell: "cp -a /usr/share/openstack-tripleo-heat-templates /home/stack/tripleo_heat_templates"
+
+- name: Deploy overcloud settings file
+  template:
+    src=overcloud-settings.j2
+    dest=/home/stack/overcloud-settings.yaml
+    mode=0755
