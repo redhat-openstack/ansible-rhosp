@@ -5,24 +5,24 @@
   vars:
     ansible_ssh_user: root
   roles:
-    - { role: setup_undercloud }
-    - { role: setup_stack_user }
-    - { role: setup_answer_file }
-    - { role: setup_undercloud_conf }
+    - { role: undercloud/prepare_host }
+    - { role: undercloud/setup_stack_user }
+    - { role: undercloud/setup_answer_file }
+    - { role: undercloud/setup_conf_file }
 
 - name: Install undercloud
   hosts: undercloud
   vars:
     ansible_ssh_user: stack
   roles:
-    - { role: install_undercloud }
+    - { role: undercloud/install }
 
 - name: Post undercloud installation
   hosts: undercloud
   vars:
     ansible_ssh_user: root
   roles:
-    - { role: post_undercloud_install }
+    - { role: undercloud/post_installation }
 
 # Overcloud
 # ---------
