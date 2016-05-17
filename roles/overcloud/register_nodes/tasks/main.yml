@@ -1,0 +1,17 @@
+- name: Register overcloud nodes
+  shell: >
+    source /home/stack/stackrc;
+    openstack baremetal import --json instackenv.json;
+  register: register_nodes_result
+  retries: 10
+  delay: 10
+  until: register_nodes_result.rc == 0
+
+- name: Assign the kernel and ramdisk images to the overcloud nodes
+  shell: >
+    source /home/stack/stackrc;
+    openstack baremetal configure boot
+  register: kernel_assign_result
+  retries: 10
+  delay: 10
+  until: kernel_assing_result.rc == 0
