@@ -20,11 +20,6 @@
                                 --neutron-public-interface=nic1 \
                                 --timeout=200 \
                                 -e /home/stack/tripleo_heat_templates/environments/puppet-pacemaker.yaml \
-                                -e /home/stack/overcloud-settings.yaml
+                                -e /home/stack/overcloud-settings.yaml &> overcloud_deployment.log
   register: overcloud_deployment_result
-
-# Overcloud deployment can fail and return 0, so seperate task for failing the run is needed
-- name: Fail run if overcloud deployment failed
-  fail:
-    msg="Overcloud deployment failed! look in overcloud_deployment.log for more information"
-  when: overcloud_deployment_result.rc != "0"
+  failed_when: overcloud_deployment_result.rc != 0

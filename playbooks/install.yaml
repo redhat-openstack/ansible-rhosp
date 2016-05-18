@@ -42,4 +42,11 @@
   vars:
     ansible_ssh_user: stack
   roles:
+    - { role: overcloud/post_installation }
+
+# Localhost
+# ---------
+- name: Update inventory with overcloud nodes
+  hosts: localhost
+  roles:
     - { role: overcloud/update_inventory }
