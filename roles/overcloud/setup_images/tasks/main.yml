@@ -8,16 +8,16 @@
   args:
     chdir: "/home/stack/overcloud_images"
   with_items:
-    - 'ironic-python-agent.tar'
-    - 'overcloud-full.tar'
+    - 'ironic-python-agent'
+    - 'overcloud-full'
 
 - name: Extract tar files
   shell: "tar -xvf {{ item }}.tar"
   args:
     chdir: "/home/stack/overcloud_images"
   with_items:
-    - 'ironic-python-agent.tar'
-    - 'overcloud-full.tar'
+    - 'ironic-python-agent'
+    - 'overcloud-full'
 
 - name: Upload images to Glance
   shell: >

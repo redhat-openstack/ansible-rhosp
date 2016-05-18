@@ -1,3 +1,20 @@
+# Prepare /etc/hosts file
+# -----------------------
+- name: Register the short name of the host
+  shell: "hostname -s"
+  register: short_hostname
+
+- name: Register the full name of the host
+  shell: "cat /etc/hostname"
+  register: full_hostname
+
+- name: Ensure /etc/hosts includes localhost definition
+  lineinfile:
+    dest=/etc/hosts
+    line="127.0.0.1   localhost localhost.localhost {{ short_hostname }} {{ full_hostname }}"
+
+# Prepare RHOSP repos
+# -------------------
 - name: Ensure no repos are installed on the host
   shell: rm -rf /etc/yum.repos.d/*
 
@@ -30,6 +47,8 @@
     - python-passlib
     - wget
 
+# Prepare instackenv.json
+# -----------------------
 - name: Download instackenv validator
   git:
     repo="https://github.com/rthallisey/clapper.git"
@@ -48,11 +67,6 @@
   fail:
     msg="istackenv.json validation failed!"
   when: instackenv_validator_result.stdout.find('SUCCESS') == -1
-
-- name: Ensure /etc/hosts includes localhost definition
-  lineinfile:
-    dest=/etc/hosts
-    line="127.0.0.1   localhost localhost.localhost"
 
 - name: Get the number of overcloud nodes
   shell: |

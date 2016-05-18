@@ -36,3 +36,10 @@
     - { role: overcloud/setup_images }
     - { role: overcloud/register_nodes }
     - { role: overcloud/install }
+
+- name: Post overcloud installation
+  hosts: undercloud
+  vars:
+    ansible_ssh_user: stack
+  roles:
+    - { role: overcloud/update_inventory }

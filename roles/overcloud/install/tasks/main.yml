@@ -1,0 +1,30 @@
+- name: Deploy Overcloud
+  shell: >
+    source /home/stack/stackrc;
+    openstack overcloud deploy --debug \
+                                --log-file overcloud_deployment.log \
+                                --templates tripleo_heat_templates \
+                                --libvirt-type=qemu \
+                                --control-scale {{ controller_nodes }} \
+                                --compute-scale {{ compute_nodes }} \
+                                --ceph-storage-scale {{ ceph_nodes }} \
+                                --block-storage-scale {{ block_storage_nodes }} \
+                                --swift-storage-scale {{ swift_nodes }} \
+                                --control-flavor {{ overcloud_flavor }} \
+                                --compute-flavor {{ overcloud_flavor }} \
+                                --ceph-storage-flavor {{ overcloud_flavor }} \
+                                --block-storage-flavor {{ overcloud_flavor }} \
+                                --swift-storage-flavor {{ overcloud_flavor }} \
+                                --neutron-network-type vxlan \
+                                --neutron-tunnel-types vxlan \
+                                --neutron-public-interface=nic1 \
+                                --timeout=200 \
+                                -e /home/stack/tripleo_heat_templates/environments/puppet-pacemaker.yaml \
+                                -e /home/stack/overcloud-settings.yaml
+  register: overcloud_deployment_result
+
+# Overcloud deployment can fail and return 0, so seperate task for failing the run is needed
+- name: Fail run if overcloud deployment failed
+  fail:
+    msg="Overcloud deployment failed! look in overcloud_deployment.log for more information"
+  when: overcloud_deployment_result.rc != "0"
