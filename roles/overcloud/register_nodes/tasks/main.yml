@@ -1,3 +1,24 @@
+# The following two tasks are workarounds for the bug: https://bugzilla.redhat.com/show_bug.cgi?id=1313907
+# ------------------------------------------------------------------------------------------------------
+- name: Add pxe_ssh driver to Ironic configuration
+  become: yes
+  become_method: sudo
+  lineinfile:
+    backup=true
+    backrefs=true
+    dest='/etc/ironic/ironic.conf'
+    regexp='^(enabled_drivers=(?:(?!pxe_ssh).)*)$'
+    line='\1,pxe_ssh'
+
+- name: Restart the Ironic conductor service
+  become: yes
+  become_method: sudo
+  service:
+    name=openstack-ironic-conductor
+    state=restarted
+
+# Node registeration
+# -----------------
 - name: Register overcloud nodes
   shell: >
     source /home/stack/stackrc;

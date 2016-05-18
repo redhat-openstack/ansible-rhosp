@@ -1,9 +1,12 @@
 - name: Regenerate inventory file
   template:
-    src="{{ inventory_dir }}/roles/inventory.j2
+    src=inventory.j2
     dest="{{ inventory_dir }}/{{ inventory_file }}"
 
 - name: Regenerate ssh.config.ansible
   template:
     src=ssh.config.ansible.j2
-    dest="{{ inventory_dir }}/ssh.config.ansible"
+    dest="{{ inventory_dir }}/files/overcloud.ssh.config.ansible"
+
+- name: Combine overcloud.ssh.config with original ssh.config
+  shell: "cat {{ inventory_dir }}/files/overcloud.ssh.config.ansible >> {{ inventory }}/ssh.config.ansible"
