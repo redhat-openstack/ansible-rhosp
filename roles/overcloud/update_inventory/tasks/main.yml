@@ -1,0 +1,77 @@
+# The key will later used by the overcloud nodes
+- name: Fetch undercloud private key
+  fetch:
+    src=~/.ssh/id_rsa
+    dest="{{ inventory_dir }}/files/id_rsa_overcloud"
+    flat=yes
+
+- name: Deploy get-overcloud-nodes.py on undercloud
+  template:
+    src=get-overcloud-nodes.py.j2
+    dest=/home/stack/get-overcloud-nodes.py
+    mode=0755
+
+- name: Get overcloud nodes names and IP addresses
+  shell: >
+    source /home/stack/stackrc;
+    python /home/stack/get-overcloud-nodes.py
+  register: overcloud_nodes
+
+# Add each overcloud node to its type of group
+- name: Add each controller to in-memory inventory
+  add_host:
+    name={{ item.key }}
+    groups=overcloud,controller
+    ansible_ssh_host={{ item.key }}
+    ansible_fqdn={{ item.value }}
+    ansible_ssh_user="heat-admin"
+    ansible_ssh_private_key_file="{{ inventory_dir }}/files/id_rsa_overcloud"
+  ignore_errors: true
+  with_dict: overcloud_nodes.stdout
+  when: item.key.startswith('overcloud-controller')
+
+- name: Add each compute node to in-memory inventory
+  add_host:
+    name={{ item.key }}
+    groups=overcloud,compute
+    ansible_ssh_host={{ item.key }}
+    ansible_fqdn={{ item.value }}
+    ansible_ssh_user="heat-admin"
+    ansible_ssh_private_key_file="{{ inventory_dir }}/files/id_rsa_overcloud"
+  ignore_errors: true
+  with_dict: overcloud_nodes.stdout
+  when: item.key.startswith('overcloud-compute') or item.key.startswith('overcloud-novacompute')
+
+- name: Add each ceph node to in-memory inventory
+  add_host:
+    name={{ item.key }}
+    groups=overcloud,ceph
+    ansible_ssh_host={{ item.key }}
+    ansible_fqdn={{ item.value }}
+    ansible_ssh_user="heat-admin"
+    ansible_ssh_private_key_file="{{ inventory_dir }}/files/id_rsa_overcloud"
+  ignore_errors: true
+  with_dict: overcloud_nodes.stdout
+  when: item.key.startswith('overcloud-ceph')
+
+- name: Add each swift node to in-memory inventory
+  add_host:
+    name={{ item.key }}
+    groups=overcloud,swift
+    ansible_ssh_host={{ item.key }}
+    ansible_fqdn={{ item.value }}
+    ansible_ssh_user="heat-admin"
+    ansible_ssh_private_key_file="{{ inventory_dir }}/files/id_rsa_overcloud"
+  ignore_errors: true
+  with_dict: overcloud_nodes.stdout
+  when: item.key.startswith('overcloud-objectstorage')
+
+- name: Regenerate inventory file
+  template:
+    src=inventory.j2
+    dest="{{ inventory_file }}"
+
+- name: Regenerate ssh.config.ansible
+  template:
+    src=ssh.config.ansible.j2
+    dest="{{ inventory_dir }}/ssh.config.ansible"

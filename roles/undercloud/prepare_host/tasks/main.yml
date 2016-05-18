@@ -11,7 +11,8 @@
 - name: Ensure /etc/hosts includes localhost definition
   lineinfile:
     dest=/etc/hosts
-    line="127.0.0.1   localhost localhost.localhost {{ short_hostname }} {{ full_hostname }}"
+    regexp='^127\.0\.0\.1'
+    line="127.0.0.1   localhost localhost.localhost {{ short_hostname.stdout }} {{ full_hostname.stdout }}"
 
 # Prepare RHOSP repos
 # -------------------
