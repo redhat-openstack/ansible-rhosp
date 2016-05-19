@@ -12,7 +12,7 @@
   lineinfile:
     dest=/etc/hosts
     regexp='^127\.0\.0\.1'
-    line="127.0.0.1   localhost localhost.localhost {{ short_hostname.stdout }} {{ full_hostname.stdout }}"
+    line="127.0.0.1 {{ full_hostname.stdout }} {{ short_hostname.stdout }} localhost localhost.localdomain localhost4.localdomain4"
 
 # Prepare RHOSP repos
 # -------------------
@@ -24,11 +24,11 @@
   shell: "yum localinstall -y http://rhos-release.virt.bos.redhat.com/repos/rhos-release/rhos-release-latest.noarch.rpm"
 
 - name: Install RHOSP puddle repos (execute rhos-release)
-  shell: "rhos-release {{ rhosp_version }}-director"
+  shell: "rhos-release 7-director"
   when: repo_version == 'puddle'
 
 - name: Install RHOSP poodle repos (execute rhos-release)
-  shell: "rhos-release -d {{ rhosp_version }}-director"
+  shell: "rhos-release -d 7-director"
   when: repo_version == 'poodle'
 
 - name: Update all packages on undercloud
@@ -36,7 +36,7 @@
     name=*
     state=latest
 
-- name: Install IPMI and git
+- name: Install IPMI, git, wget and passlib
   yum:
     name="{{ item }}"
     state=latest
@@ -44,8 +44,8 @@
     - git
     - OpenIPMI
     - OpenIPMI-tools
-    - python-tripleoclient
     - python-passlib
+    - python-rdomanager-oscplugin
     - wget
 
 # Prepare instackenv.json
