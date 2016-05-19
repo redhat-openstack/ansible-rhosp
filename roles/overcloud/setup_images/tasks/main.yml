@@ -17,7 +17,8 @@
   args:
     chdir: "/home/stack/overcloud_images"
   with_items:
-    - 'ironic-python-agent'
+    - 'deploy-ramdisk-ironic'
+    - 'discovery-ramdisk'
     - 'overcloud-full'
 
 - name: Upload images to Glance
