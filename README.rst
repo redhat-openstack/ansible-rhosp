@@ -1,7 +1,7 @@
 Ansible-RHOSP
 ===========================
 
-Ansible roles for installing RHOSP on existing TripleO setup.
+Ansible roles for installing RHOSP 8 on existing TripleO setup.
 
 Note: If you don't have TripleO setup, you can use ``ansible-ovb`` project deploy one on existing OpenStack cloud.
 
@@ -18,7 +18,7 @@ Requirments
 Usage
 -----
 
-Install RHOSP
+Install RHOSP 8
 ^^^^^^^^^^^^^^^^^^^^
 
 #. Run the following command::

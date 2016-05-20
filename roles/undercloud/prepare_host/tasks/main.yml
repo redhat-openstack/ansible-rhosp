@@ -23,12 +23,12 @@
 - name: Install release tool
   shell: "yum localinstall -y http://rhos-release.virt.bos.redhat.com/repos/rhos-release/rhos-release-latest.noarch.rpm"
 
-- name: Install RHOSP puddle repos (execute rhos-release)
-  shell: "rhos-release 7-director"
+- name: Install RHOSP 8 puddle repos (execute rhos-release)
+  shell: "rhos-release 8-director"
   when: repo_version == 'puddle'
 
-- name: Install RHOSP poodle repos (execute rhos-release)
-  shell: "rhos-release -d 7-director"
+- name: Install RHOSP 8 poodle repos (execute rhos-release)
+  shell: "rhos-release -d 8-director"
   when: repo_version == 'poodle'
 
 - name: Update all packages on undercloud
@@ -45,7 +45,7 @@
     - OpenIPMI
     - OpenIPMI-tools
     - python-passlib
-    - python-rdomanager-oscplugin
+    - python-tripleoclient
     - wget
 
 # Prepare instackenv.json

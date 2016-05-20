@@ -4,12 +4,11 @@
     state=directory
 
 - name: Obtain overcloud images
-  shell: "wget --quiet -c -O /home/stack/overcloud_images/{{ item }}.tar http://rhos-release.virt.bos.redhat.com/puddle-images/latest-7.0-images/{{ item }}.tar"
+  shell: "wget --quiet -c -O /home/stack/overcloud_images/{{ item }}.tar http://rhos-release.virt.bos.redhat.com/puddle-images/latest-8.0-images/{{ item }}.tar"
   args:
     chdir: "/home/stack/overcloud_images"
   with_items:
-    - 'deploy-ramdisk-ironic'
-    - 'discovery-ramdisk'
+    - 'ironic-python-agent'
     - 'overcloud-full'
 
 - name: Extract tar files
@@ -17,13 +16,10 @@
   args:
     chdir: "/home/stack/overcloud_images"
   with_items:
-    - 'deploy-ramdisk-ironic'
-    - 'discovery-ramdisk'
+    - 'ironic-python-agent'
     - 'overcloud-full'
 
 - name: Upload images to Glance
   shell: >
     source /home/stack/stackrc;
-    openstack overcloud image upload 
-  args:
-    chdir: "/home/stack/overcloud_images"
+    openstack overcloud image upload --image-path /home/stack/overcloud_images/

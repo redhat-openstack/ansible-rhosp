@@ -39,12 +39,9 @@
     insertafter=EOF
     line='dhcp-option-force=26,1450'
 
-- name: Restart neutron-dhcp-agent and openstack-ironic-discoverd-dnsmasq
+- name: Restart neutron-dhcp-agent
   become: yes
   become_method: sudo
   service:
-    name="{{ item }}"
+    name="neutron-dhcp-agent"
     state=restarted
-  with_items:
-    - 'neutron-dhcp-agent'
-    - 'openstack-ironic-discoverd-dnsmasq'
