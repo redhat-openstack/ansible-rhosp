@@ -35,7 +35,6 @@
     - { role: overcloud/setup }
     - { role: overcloud/setup_images }
     - { role: overcloud/register_nodes }
-    - { role: overcloud/setup_nodes }
     - { role: overcloud/install }
 
 - name: Post overcloud installation

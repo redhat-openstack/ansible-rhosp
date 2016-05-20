@@ -42,8 +42,24 @@
   delay: 10
   until: register_nodes_result.rc == 0
 
+- name: Get overcloud nodes IDs
+  shell: >
+    source /home/stack/stackrc;
+    ironic node-list | grep 'None' | awk '{ print $2; }'
+  register: overcloud_nodes_ids
+
+- name: Set power state to ON
+  shell: >
+    source /home/stack/stackrc;
+    ironic node-set-power-state {{ item }} on;
+    sleep 60
+  with_items: overcloud_nodes_ids.stdout_lines
+
 - name: Assign the kernel and ramdisk images to the overcloud nodes
   shell: >
     source /home/stack/stackrc;
     openstack baremetal configure boot
-  ignore_errors: true
+  register: configure_boot
+  retries: 10
+  delay: 10
+  until: configure_boot.rc == 0
