@@ -8,16 +8,12 @@ Note: If you don't have TripleO setup, you can use ``ansible-ovb`` project deplo
 Requirments
 -----------
 
-#. All the packages needed for running ansible-rhosp are listed in requirements.txt
+1. Packages listed in ``requirements.txt``. Install them by using ``pip install -r requirements.txt``.
 
-To install them, run ``pip install -r requirements.txt``
+2. hosts file with the following entry::
 
-#. hosts file with the following entry:
-
-```
-[undercloud]
-<undercloud_IP_or_name>
-```
+    [undercloud]
+    <undercloud_IP_or_name>
 
 Usage
 -----
@@ -25,6 +21,6 @@ Usage
 Install RHOSP
 ^^^^^^^^^^^^^^^^^^^^
 
-#. Run the following command:
+#. Run the following command::
 
-       ansible-playbook -i hosts playbooks/install.yaml -e @ansible-rhosp.cfg
+    ansible-playbook -i hosts playbooks/install.yaml -e @ansible-rhosp.cfg
