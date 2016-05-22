@@ -10,6 +10,7 @@
 - name: Create baremetal flavor for overcloud nodes deployment
   shell: >
     source /home/stack/stackrc;
+    openstack flavor delete baremetal;
     openstack flavor create --id auto --ram 4096 --disk 40 --vcpus 1 baremetal;
     openstack flavor set --property "cpu_arch"="x86_64" --property "capabilities:boot_option"="local" baremetal;
 
@@ -39,9 +40,12 @@
     insertafter=EOF
     line='dhcp-option-force=26,1450'
 
-- name: Restart neutron-dhcp-agent
+- name: Restart neutron-dhcp-agent and openstack-ironic-inspector-dnsmasq
   become: yes
   become_method: sudo
   service:
-    name="neutron-dhcp-agent"
+    name="{{ item }}"
     state=restarted
+  with_items:
+    - "neutron-dhcp-agent"
+    - "openstack-ironic-inspector-dnsmasq"

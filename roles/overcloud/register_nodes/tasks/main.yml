@@ -1,14 +1,14 @@
- The following four tasks are workarounds for the bug: https://bugzilla.redhat.com/show_bug.cgi?id=1313907
- ------------------------------------------------------------------------------------------------------
-- name: Add pxe_ssh driver to Ironic configuration
-  become: yes
-  become_method: sudo
-  lineinfile:
-    backup=true
-    backrefs=true
-    dest='/etc/ironic/ironic.conf'
-    regexp='^(enabled_drivers=(?:(?!pxe_ssh).)*)$'
-    line='\1,pxe_ssh'
+# The following four tasks are workarounds for the bug: https://bugzilla.redhat.com/show_bug.cgi?id=1313907
+# ------------------------------------------------------------------------------------------------------
+#- name: Add pxe_ssh driver to Ironic configuration
+#  become: yes
+#  become_method: sudo
+#  lineinfile:
+#    backup=true
+#    backrefs=true
+#    dest='/etc/ironic/ironic.conf'
+#    regexp='^(enabled_drivers=(?:(?!pxe_ssh).)*)$'
+#    line='\1,pxe_ssh'
 
 - name: Allow Ironic to control the power state
   become: yes
@@ -22,14 +22,14 @@
     name=openstack-ironic-conductor
     state=restarted
 
-- name: Ensure the pxe_ssh driver is enabled
-  shell: >
-    source /home/stack/stackrc;
-    ironic driver-list;
-  register: drivers
-  until: drivers.stdout.find("pxe_ssh") > -1
-  retries: 100
-  delay: 3
+    #- name: Ensure the pxe_ssh driver is enabled
+    #  shell: >
+    #    source /home/stack/stackrc;
+    #    ironic driver-list;
+    #  register: drivers
+    #  until: drivers.stdout.find("pxe_ssh") > -1
+    #  retries: 100
+    #  delay: 3
 
 # Node registeration
 # -----------------
@@ -47,13 +47,6 @@
     source /home/stack/stackrc;
     ironic node-list | grep 'None' | awk '{ print $2; }'
   register: overcloud_nodes_ids
-
-- name: Set power state to ON
-  shell: >
-    source /home/stack/stackrc;
-    ironic node-set-power-state {{ item }} on;
-    sleep 60
-  with_items: overcloud_nodes_ids.stdout_lines
 
 - name: Assign the kernel and ramdisk images to the overcloud nodes
   shell: >

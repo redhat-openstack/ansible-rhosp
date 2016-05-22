@@ -12,7 +12,7 @@
   lineinfile:
     dest=/etc/hosts
     regexp='^127\.0\.0\.1'
-    line="127.0.0.1 {{ full_hostname.stdout }} {{ short_hostname.stdout }} localhost localhost.localdomain localhost4.localdomain4"
+    line="127.0.0.1 localhost localhost.localdomain localhost4.localdomain4 {{ short_hostname.stdout }} {{ full_hostname.stdout }}"
 
 # Prepare RHOSP repos
 # -------------------
@@ -36,6 +36,7 @@
     name=*
     state=latest
 
+# Although we are not using drac, it is required to start ironic-conductor successfully
 - name: Install IPMI, git, wget and passlib
   yum:
     name="{{ item }}"
@@ -46,6 +47,7 @@
     - OpenIPMI-tools
     - python-passlib
     - python-tripleoclient
+    - python-dracclient
     - wget
 
 # Prepare instackenv.json
