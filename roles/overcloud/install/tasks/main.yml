@@ -1,32 +1,3 @@
-#- name: get ironic node ids (workaround for bz 1246641)
-#  shell: >
-#      source /home/stack/stackrc;
-#      ironic node-list | grep 'None' | awk '{ print $2; }'
-#  register: ironic_node_ids
-
-#- name: power off ironic nodes (workaround for bz 1246641)
-#  shell: >
-#      source /home/stack/stackrc;
-#      export MAINTENANCE_STATUS=$(ironic node-show {{item}} | grep 'maintenance ');
-#      if [[ $MAINTENANCE_STATUS != *"False"* ]]; then
-#          ironic node-set-maintenance {{item}} false;
-#      fi;
-#      ironic node-set-power-state {{item}} off;
-#      sleep 60; 
-#      export LAST_ERROR=$(ironic node-show {{item}} | grep 'last_error ');
-#      export TARGET=$(ironic node-show {{item}} | grep 'target_power_state');
-#      if [[ $LAST_ERROR != *"None"* ]]; then
-#         ironic node-set-power-state {{item}} off;
-#         sleep 60; 
-#      fi;
-#      ironic node-show  {{item}} | grep ' power_state'
-#  register: node_power_status
-#  retries: 5
-#  delay: 60
-#  until: node_power_status.stdout.find("power off" ) != -1
-#  ignore_errors: true
-#  with_items: ironic_node_ids.stdout_lines
-
 - name: Deploy Overcloud
   shell: >
     source /home/stack/stackrc;
@@ -39,11 +10,11 @@
                                 --ceph-storage-scale {{ ceph_nodes }} \
                                 --block-storage-scale {{ block_storage_nodes }} \
                                 --swift-storage-scale {{ swift_nodes }} \
-                                --control-flavor {{ overcloud_flavor }} \
-                                --compute-flavor {{ overcloud_flavor }} \
-                                --ceph-storage-flavor {{ overcloud_flavor }} \
-                                --block-storage-flavor {{ overcloud_flavor }} \
-                                --swift-storage-flavor {{ overcloud_flavor }} \
+                                --control-flavor baremetal \
+                                --compute-flavor baremetal \
+                                --ceph-storage-flavor baremetal \
+                                --block-storage-flavor baremetal \
+                                --swift-storage-flavor baremetal \
                                 --neutron-network-type vxlan \
                                 --neutron-tunnel-types vxlan \
                                 --neutron-public-interface=nic1 \
