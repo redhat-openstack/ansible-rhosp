@@ -7,7 +7,6 @@
   roles:
     - { role: undercloud/prepare_host }
     - { role: undercloud/setup_stack_user }
-    - { role: undercloud/setup_answer_file }
     - { role: undercloud/setup_conf_file }
 
 - name: Install undercloud

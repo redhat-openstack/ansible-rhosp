@@ -10,17 +10,17 @@
 #    regexp='^(enabled_drivers=(?:(?!pxe_ssh).)*)$'
 #    line='\1,pxe_ssh'
 
-- name: Allow Ironic to control the power state
-  become: yes
-  become_method: sudo
-  shell: sed -i 's/force_power_state_during_sync=False/force_power_state_during_sync=True/g' /etc/ironic/ironic.conf
+#- name: Allow Ironic to control the power state
+#  become: yes
+#  become_method: sudo
+#  shell: sed -i 's/force_power_state_during_sync=False/force_power_state_during_sync=True/g' /etc/ironic/ironic.conf
 
-- name: Restart the Ironic conductor service
-  become: yes
-  become_method: sudo
-  service:
-    name=openstack-ironic-conductor
-    state=restarted
+#- name: Restart the Ironic conductor service
+#  become: yes
+#  become_method: sudo
+#  service:
+#    name=openstack-ironic-conductor
+#    state=restarted
 
     #- name: Ensure the pxe_ssh driver is enabled
     #  shell: >
