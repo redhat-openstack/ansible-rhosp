@@ -25,11 +25,6 @@
 
 - name: Install RHOSP 8 puddle repos (execute rhos-release)
   shell: "rhos-release 8-director"
-  when: repo_version == 'puddle'
-
-- name: Install RHOSP 8 poodle repos (execute rhos-release)
-  shell: "rhos-release -d 8-director"
-  when: repo_version == 'poodle'
 
 - name: Update all packages on undercloud
   yum:
