@@ -23,8 +23,20 @@
 - name: Install release tool
   shell: "yum localinstall -y http://rhos-release.virt.bos.redhat.com/repos/rhos-release/rhos-release-latest.noarch.rpm"
 
+# The following two tasks are workaround for rhbz#1340609
 - name: Install RHOSP 8 puddle repos (execute rhos-release)
-  shell: "rhos-release 8-director"
+  shell: >
+    rhos-release 8-director;
+    rm -rf /etc/yum.repos.d/rhos-release-*
+
+- name: Deploy rhos-release repos
+  template:
+    src="{{ item }}.j2"
+    dest="/etc/yum.repos.d/{{ item }}.repo"
+    mode=0755
+  with_items:
+    - 'rhos-release-8-director'
+    - 'rhos-release-8'
 
 - name: Update all packages on undercloud
   yum:
