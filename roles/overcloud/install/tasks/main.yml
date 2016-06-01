@@ -1,3 +1,12 @@
+- name: Wait for at least one node to be available
+  shell: >
+    source /home/stack/stackrc;
+    nova hypervisor-stats
+  register: nodes
+  until: nodes.stdout.find("count                | 0") == -1
+  retries: 10
+  delay: 10
+
 - name: Deploy Overcloud
   shell: >
     source /home/stack/stackrc;
