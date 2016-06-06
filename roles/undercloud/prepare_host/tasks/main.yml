@@ -23,8 +23,8 @@
 - name: Install release tool
   shell: "yum localinstall -y http://rhos-release.virt.bos.redhat.com/repos/rhos-release/rhos-release-latest.noarch.rpm"
 
-- name: Install RHOSP 8 puddle repos (execute rhos-release)
-  shell: rhos-release 8-director
+- name: Install RHOSP 9 puddle repos (execute rhos-release)
+  shell: rhos-release 9-director
 
 - name: Update all packages on undercloud
   yum:
