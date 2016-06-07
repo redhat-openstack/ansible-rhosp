@@ -1,3 +1,12 @@
+- name: Wait for at least one node to be available
+  shell: >
+    source /home/stack/stackrc;
+    nova hypervisor-stats
+  register: nodes
+  until: nodes.stdout.find("count                | 0") == -1
+  retries: 10
+  delay: 10
+
 - name: Deploy Overcloud
   shell: >
     source /home/stack/stackrc;
@@ -10,15 +19,16 @@
                                 --ceph-storage-scale {{ ceph_nodes }} \
                                 --block-storage-scale {{ block_storage_nodes }} \
                                 --swift-storage-scale {{ swift_nodes }} \
-                                --control-flavor {{ overcloud_flavor }} \
-                                --compute-flavor {{ overcloud_flavor }} \
-                                --ceph-storage-flavor {{ overcloud_flavor }} \
-                                --block-storage-flavor {{ overcloud_flavor }} \
-                                --swift-storage-flavor {{ overcloud_flavor }} \
+                                --control-flavor baremetal \
+                                --compute-flavor baremetal \
+                                --ceph-storage-flavor baremetal \
+                                --block-storage-flavor baremetal \
+                                --swift-storage-flavor baremetal \
                                 --neutron-network-type vxlan \
                                 --neutron-tunnel-types vxlan \
                                 --neutron-public-interface=nic1 \
                                 --timeout=200 \
+                                --ntp-server=pool.ntp.org \
                                 -e /home/stack/tripleo_heat_templates/environments/puppet-pacemaker.yaml \
                                 -e /home/stack/overcloud-settings.yaml &> overcloud_deployment.log
   register: overcloud_deployment_result

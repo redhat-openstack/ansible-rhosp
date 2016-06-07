@@ -62,3 +62,10 @@
     recurse=yes
     owner=stack
     group=stack
+
+- name: Remove 'requiretty' from sudoers file
+  become: yes
+  lineinfile:
+    dest=/etc/sudoers
+    state=absent 
+    regexp='Defaults\s+requiretty'

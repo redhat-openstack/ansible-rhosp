@@ -1,5 +1,9 @@
 # Prepare /etc/hosts file
 # -----------------------
+- name: set hostname
+  hostname:
+    name=undercloud.openstacklocal
+
 - name: Register the short name of the host
   shell: "hostname -s"
   register: short_hostname
@@ -12,7 +16,7 @@
   lineinfile:
     dest=/etc/hosts
     regexp='^127\.0\.0\.1'
-    line="127.0.0.1 {{ full_hostname.stdout }} {{ short_hostname.stdout }} localhost localhost.localdomain localhost4.localdomain4"
+    line="127.0.0.1 localhost localhost.localdomain localhost4.localdomain4 {{ short_hostname.stdout }} {{ full_hostname.stdout }} {{ short_hostname.stdout }}"
 
 # Prepare RHOSP repos
 # -------------------
@@ -25,11 +29,6 @@
 
 - name: Install RHOSP puddle repos (execute rhos-release)
   shell: "rhos-release 7-director"
-  when: repo_version == 'puddle'
-
-- name: Install RHOSP poodle repos (execute rhos-release)
-  shell: "rhos-release -d 7-director"
-  when: repo_version == 'poodle'
 
 - name: Update all packages on undercloud
   yum:
