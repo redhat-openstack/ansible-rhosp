@@ -12,7 +12,7 @@
   lineinfile:
     dest=/etc/hosts
     regexp='^127\.0\.0\.1'
-    line="127.0.0.1   localhost localhost.localhost {{ short_hostname.stdout }} {{ full_hostname.stdout }}"
+    line="127.0.0.1 localhost localhost.localdomain localhost4.localdomain4 {{ short_hostname.stdout }} {{ full_hostname.stdout }}"
 
 # Prepare RHOSP repos
 # -------------------
@@ -23,20 +23,16 @@
 - name: Install release tool
   shell: "yum localinstall -y http://rhos-release.virt.bos.redhat.com/repos/rhos-release/rhos-release-latest.noarch.rpm"
 
-- name: Install RHOSP puddle repos (execute rhos-release)
-  shell: "rhos-release {{ rhosp_version }}-director"
-  when: repo_version == 'puddle'
-
-- name: Install RHOSP poodle repos (execute rhos-release)
-  shell: "rhos-release -d {{ rhosp_version }}-director"
-  when: repo_version == 'poodle'
+- name: Install RHOSP 9 puddle repos (execute rhos-release)
+  shell: rhos-release 9-director
 
 - name: Update all packages on undercloud
   yum:
     name=*
     state=latest
 
-- name: Install IPMI and git
+# Although we are not using drac, it is required to start ironic-conductor successfully
+- name: Install IPMI, git, wget and passlib
   yum:
     name="{{ item }}"
     state=latest
@@ -44,8 +40,9 @@
     - git
     - OpenIPMI
     - OpenIPMI-tools
-    - python-tripleoclient
     - python-passlib
+    - python-tripleoclient
+    - python-dracclient
     - wget
 
 # Prepare instackenv.json

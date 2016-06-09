@@ -1,22 +1,3 @@
-# The following two tasks are workarounds for the bug: https://bugzilla.redhat.com/show_bug.cgi?id=1313907
-# ------------------------------------------------------------------------------------------------------
-- name: Add pxe_ssh driver to Ironic configuration
-  become: yes
-  become_method: sudo
-  lineinfile:
-    backup=true
-    backrefs=true
-    dest='/etc/ironic/ironic.conf'
-    regexp='^(enabled_drivers=(?:(?!pxe_ssh).)*)$'
-    line='\1,pxe_ssh'
-
-- name: Restart the Ironic conductor service
-  become: yes
-  become_method: sudo
-  service:
-    name=openstack-ironic-conductor
-    state=restarted
-
 # Node registeration
 # -----------------
 - name: Register overcloud nodes
@@ -28,11 +9,17 @@
   delay: 10
   until: register_nodes_result.rc == 0
 
+- name: Get overcloud nodes IDs
+  shell: >
+    source /home/stack/stackrc;
+    ironic node-list | grep 'None' | awk '{ print $2; }'
+  register: overcloud_nodes_ids
+
 - name: Assign the kernel and ramdisk images to the overcloud nodes
   shell: >
     source /home/stack/stackrc;
     openstack baremetal configure boot
-  register: kernel_assign_result
+  register: configure_boot
   retries: 10
   delay: 10
-  until: kernel_assign_result.rc == 0
+  until: configure_boot.rc == 0

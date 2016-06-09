@@ -1,8 +1,2 @@
-- block:
-   - name: Install the undercloud
-     shell: openstack undercloud install --debug &> /home/stack/undercloud_installation.log
-
-  rescue:
-    - name: Undercloud installation failed
-      fail:
-        msg="Undercloud installation failed. More details in undercloud_installation.log"
+- name: Install the undercloud
+  shell: openstack undercloud install --debug &> /home/stack/undercloud_installation.log

@@ -9,4 +9,4 @@
     dest="{{ inventory_dir }}/files/overcloud.ssh.config.ansible"
 
 - name: Combine overcloud.ssh.config with original ssh.config
-  shell: "cat {{ inventory_dir }}/files/overcloud.ssh.config.ansible >> {{ inventory }}/ssh.config.ansible"
+  shell: "cat {{ inventory_dir }}/files/overcloud.ssh.config.ansible >> {{ inventory_dir }}/ssh.config.ansible"

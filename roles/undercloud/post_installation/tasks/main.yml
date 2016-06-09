@@ -23,7 +23,7 @@
    
 - name: Disable HAproxy check in config file
   replace:
-    dest=dest=/etc/haproxy/haproxy.cfg
+    dest=/etc/haproxy/haproxy.cfg
     regexp='(listen ironic\n.*\n.*)\n.*option h    ttpchk GET \/'
     replace='\1'
   when: haproxy_config.stat.exists
