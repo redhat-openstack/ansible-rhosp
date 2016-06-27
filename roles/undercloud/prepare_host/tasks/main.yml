@@ -20,8 +20,8 @@
 
 # Prepare RHOSP repos
 # -------------------
-- name: Ensure no repos are installed on the host
-  shell: rm -rf /etc/yum.repos.d/*
+- name: Ensure no repos are installed on the host except for patched_rpms
+  shell: find /etc/yum.repos.d/ ! -name 'patched_rpms.repo' -type f -exec rm -f {} +
 
 # At this point, Ansible doesn't support 'yum localinstall' so this will not work using 'yum' module
 - name: Install release tool
