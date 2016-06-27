@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "baa041b7_d5ca134f",
+        "filename": "roles/undercloud/prepare_host/tasks/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1007069
+      },
+      "writtenOn": "2016-06-27T15:13:54Z",
+      "side": 1,
+      "message": "Change the name to reflect implementation.",
+      "revId": "7b73c534f860306003e5f424d280d4d64a452fd8",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
