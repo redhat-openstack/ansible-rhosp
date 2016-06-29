@@ -35,6 +35,7 @@
     virt-customize --update -a overcloud-full.qcow2
   args:
     chdir: "/home/stack/overcloud_images"
+  ignore_errors: yes
 
 - name: Upload images to Glance
   shell: >
