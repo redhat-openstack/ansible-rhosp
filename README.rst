@@ -3,10 +3,15 @@ Ansible-RHOSP
 
 Ansible roles for installing RHOSP 9 on existing TripleO setup.
 
-To install different version, checkout one of the other branches:
+To install different version, checkout one of the existing branches:
 
-RHOSP 8 -> git checkout stable/8
-RHOSP 7 -> git checkout stable/7
+To install RHOSP 8::
+
+    git checkout stable/8
+
+To install RHOSP 7::
+
+    git checkout stable/7
 
 
 Note: If you don't have TripleO setup, you can use ``ansible-ovb`` project to deploy such setup on existing OpenStack cloud.
@@ -26,7 +31,7 @@ Make sure you have password-less connection to the undercloud host.
 Usage
 -----
 
-Install RHOSP 8
+Install RHOSP 9
 ^^^^^^^^^^^^^^^
 #. Specify the number of nodes you would like to install in ansible-rhosp.cfg::
 
