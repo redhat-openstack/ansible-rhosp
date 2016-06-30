@@ -1,0 +1,33 @@
+- name: Install packages required for collecting logs
+  yum:
+    name="{{ item }}"
+    state=present
+  with_items:
+    - tar
+    - gzip
+
+- name: Create 'collected_logs' directory
+  file:
+    name="collected_logs"
+    state=directory
+    mode=0755
+
+- name: Generate list of installed RPMs
+  shell: rpm -qa | sort -f > collected_logs/RPMs.log
+
+- name: Archive collected logs
+  shell: >
+    tar czf {{ inventory_hostname }}.tar.gz collected_logs;
+
+- name: Fetch collected logs archive
+  fetch:
+    src={{ inventory_hostname }}.tar.gz
+    flat=yes
+    dest="{{ inventory_dir }}/{{ inventory_hostname }}.tar.gz"
+    validate_checksum=no
+
+- name: Extract logs
+  local_action: unarchive src={{ inventory_dir }}/{{ inventory_hostname }}.tar.gz dest={{ inventory_dir }}
+
+- name: Remove archive
+  local_action: file path={{ inventory_dir }}/{{ inventory_hostname }}.tar.gz state=absent

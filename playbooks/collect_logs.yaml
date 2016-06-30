@@ -1,0 +1,6 @@
+# Both Undercloud and Overcloud nodes
+# -----------------------------------
+- name: Collect logs
+  hosts: undercloud, overcloud
+  roles:
+    - { role: collect_logs, when: collect_logs is defined and collect_logs }
