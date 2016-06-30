@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "baa041b7_2a2c2e49",
+        "filename": "roles/overcloud/setup_images/tasks/main.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1007069
+      },
+      "writtenOn": "2016-06-30T09:02:16Z",
+      "side": 1,
+      "message": "isdir instead of exists",
+      "revId": "55a62bd5bd0b5a4eb62236b13dc516c3d024fcaf",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
