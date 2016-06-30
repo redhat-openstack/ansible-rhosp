@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "baa041b7_2088cd21",
+        "filename": "roles/overcloud/setup_images/tasks/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1007069
+      },
+      "writtenOn": "2016-06-30T14:25:20Z",
+      "side": 1,
+      "message": "whitespace - remove it",
+      "revId": "6181bb79ca960655e47486fc3e2b4cde70af3a82",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
