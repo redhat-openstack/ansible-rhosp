@@ -3,6 +3,13 @@
     path=/home/stack/overcloud_images
     state=directory
 
+- name: Install libguestfs-tools to modify the images
+  become: yes 
+  become_method: sudo
+  yum:
+    name=libguestfs-tools
+    state=present
+
 - name: Obtain overcloud images
   shell: "wget --quiet -c -O /home/stack/overcloud_images/{{ item }}.tar http://rhos-release.virt.bos.redhat.com/puddle-images/latest-8.0-images/{{ item }}.tar"
   args:
@@ -18,6 +25,20 @@
   with_items:
     - 'ironic-python-agent'
     - 'overcloud-full'
+
+- name: Check if there are patched RPMs
+  stat:
+    path="/patched_rpms"
+  register: patched_rpms
+
+- name: Inject patches to overcloud full image
+  shell: >
+    virt-copy-in /patched_rpms / -a overcloud-full.qcow2;
+    virt-customize --upload /etc/yum.repos.d/patched_rpms.repo:/etc/yum.repos.d/patched_rpms.repo -a overcloud-full.qcow2;
+    virt-customize --update -a overcloud-full.qcow2
+  args:
+    chdir: "/home/stack/overcloud_images"
+  when: patched_rpms.stat.isdir
 
 - name: Upload images to Glance
   shell: >
