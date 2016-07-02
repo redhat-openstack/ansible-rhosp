@@ -40,7 +40,7 @@
     virt-customize --update -a overcloud-full.qcow2
   args:
     chdir: "/home/stack/overcloud_images"
-  when: patched_rpms.stat.isdir
+  when: patched_rpms.stat.isdir is defined and patched_rpms.stat.isdir
 
 - name: Upload images to Glance
   shell: >
