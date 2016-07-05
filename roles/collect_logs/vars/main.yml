@@ -1,0 +1,10 @@
+archives_locations:
+  - /var/log/neutron
+  - /var/log/nova
+  - /var/log/glance
+  - /var/log/messages
+  - /var/log/yum.log
+  - /var/log/cinder
+  - /var/log/swift
+  - /var/log/manila
+  - /var/log/sahara
