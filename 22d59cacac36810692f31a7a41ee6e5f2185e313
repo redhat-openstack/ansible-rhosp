@@ -33,6 +33,24 @@
       "revId": "22d59cacac36810692f31a7a41ee6e5f2185e313",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "baa041b7_7e0c2a94",
+        "filename": "roles/overcloud/update_inventory/templates/ssh.config.ansible.j2",
+        "patchSetId": 13
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1004788
+      },
+      "writtenOn": "2016-07-05T06:22:04Z",
+      "side": 1,
+      "message": "It\u0027s not about the reordering, we could have it in the first line. I modified the line itself.",
+      "parentUuid": "baa041b7_fe495ad1",
+      "revId": "22d59cacac36810692f31a7a41ee6e5f2185e313",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
     }
   ]
 }
