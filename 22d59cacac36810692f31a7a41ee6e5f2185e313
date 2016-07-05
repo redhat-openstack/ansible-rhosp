@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "baa041b7_1e3bde39",
+        "filename": "roles/collect_logs/vars/main.yml",
+        "patchSetId": 13
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1006664
+      },
+      "writtenOn": "2016-07-05T06:19:05Z",
+      "side": 1,
+      "message": "let\u0027s also add\n/var/log/{cinder,swift,manila,sahara}",
+      "revId": "22d59cacac36810692f31a7a41ee6e5f2185e313",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "baa041b7_fe495ad1",
+        "filename": "roles/overcloud/update_inventory/templates/ssh.config.ansible.j2",
+        "patchSetId": 13
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1006664
+      },
+      "writtenOn": "2016-07-05T06:19:05Z",
+      "side": 1,
+      "message": "why this reordering is needed?",
+      "revId": "22d59cacac36810692f31a7a41ee6e5f2185e313",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
