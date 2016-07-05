@@ -39,9 +39,4 @@
 - name: Extract logs
   sudo: no
   ignore_errors: yes
-  local_action: unarchive src={{ inventory_dir }}/{{ inventory_hostname }}.tar.gz dest={{ inventory_dir }}
-
-- name: Remove archive
-  sudo: no
-  ignore_errors: yes
-  local_action: file path={{ inventory_dir }}/{{ inventory_hostname }}.tar.gz state=absent
+  local_action: unarchive src={{ inventory_dir }}/{{ inventory_hostname }}.tar.gz dest={{ inventory_dir }}/{{ inventory_hostname }}
