@@ -1,0 +1,8 @@
+# Both Undercloud and Overcloud nodes
+# -----------------------------------
+- name: Collect logs
+  become: yes
+  become_method: sudo
+  hosts: undercloud, overcloud
+  roles:
+    - { role: collect_logs }
