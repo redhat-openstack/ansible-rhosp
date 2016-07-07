@@ -1,0 +1,19 @@
+- name: Regenerate inventory file
+  template:
+    src=inventory.j2
+    dest="{{ inventory_dir }}/{{ inventory_file }}"
+
+- name: Regenerate ssh.config.ansible
+  template:
+    src=ssh.config.ansible.j2
+    dest="{{ inventory_dir }}/files/overcloud.ssh.config.ansible"
+
+- name: Combine overcloud.ssh.config with original ssh.config
+  shell: "cat {{ inventory_dir }}/files/overcloud.ssh.config.ansible >> {{ inventory_dir }}/ssh.config.ansible"
+
+- name: Update ansible.cfg with the new SSH settings
+  ini_file:
+    dest="{{ inventory_dir }}/ansible.cfg"
+    section=ssh_connection
+    option=ssh_args
+    value="-o ForwardAgent=yes -o ServerAliveInterval=30 -o ControlMaster=auto -o ControlPersist=30m -F {{ inventory_dir }}/ssh.config.ansible"
