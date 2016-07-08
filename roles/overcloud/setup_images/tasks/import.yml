@@ -1,0 +1,15 @@
+- name: Obtain overcloud images
+  shell: "wget --quiet -c -O /home/stack/overcloud_images/{{ item }}.tar http://rhos-release.virt.bos.redhat.com/puddle-images/latest-8.0-images/{{ item }}.tar" 
+  args:
+    chdir: "/home/stack/overcloud_images"
+  with_items:
+    - 'ironic-python-agent'
+    - 'overcloud-full'
+
+- name: Extract tar files
+  shell: "tar -xvf {{ item }}.tar" 
+  args:
+    chdir: "/home/stack/overcloud_images"
+  with_items:
+    - 'ironic-python-agent'
+    - 'overcloud-full'
