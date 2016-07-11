@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "baa041b7_79b78bd8",
+        "filename": "roles/overcloud/setup_images/tasks/import.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1007069
+      },
+      "writtenOn": "2016-07-11T16:17:45Z",
+      "side": 1,
+      "message": "this should be removed once you have get_url",
+      "revId": "ac8bb6b5bea1699a7c1725a3fd3bdb7db3beeeb3",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
