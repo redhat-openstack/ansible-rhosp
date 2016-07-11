@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "baa041b7_19b63ff9",
+        "filename": "roles/overcloud/setup_images/tasks/import.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1007069
+      },
+      "writtenOn": "2016-07-11T15:48:05Z",
+      "side": 1,
+      "message": "use get_url from ansible",
+      "revId": "783f02decb76b66e781d156f81042fa93fcb2178",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "baa041b7_b9c5135d",
+        "filename": "roles/overcloud/setup_images/tasks/import.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1007069
+      },
+      "writtenOn": "2016-07-11T15:48:05Z",
+      "side": 1,
+      "message": "use unarchive",
+      "revId": "783f02decb76b66e781d156f81042fa93fcb2178",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
