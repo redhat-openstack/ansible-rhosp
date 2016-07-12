@@ -1,16 +1,17 @@
 - name: Obtain overcloud images
-  shell: "wget --quiet -c -O /home/stack/overcloud_images/{{ item }}.tar http://rhos-release.virt.bos.redhat.com/puddle-images/latest-7.0-images/{{ item }}.tar" 
-  args:
-    chdir: "/home/stack/overcloud_images"
+  get_url:
+    url="http://rhos-release.virt.bos.redhat.com/puddle-images/latest-7.0-images/{{ item }}.tar"
+    dest="/home/stack/overcloud_images"
   with_items:
     - 'deploy-ramdisk-ironic'
     - 'discovery-ramdisk'
     - 'overcloud-full'
 
 - name: Extract tar files
-  shell: "tar -xvf {{ item }}.tar" 
-  args:
-    chdir: "/home/stack/overcloud_images"
+  unarchive:
+    src="/home/stack/overcloud_images/{{ item }}.tar"
+    dest="/home/stack/overcloud_images"
+    copy=no
   with_items:
     - 'deploy-ramdisk-ironic'
     - 'discovery-ramdisk'
