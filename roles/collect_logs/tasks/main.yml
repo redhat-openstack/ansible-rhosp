@@ -35,8 +35,3 @@
     flat=yes
     dest="{{ inventory_dir }}/{{ inventory_hostname }}.tar.gz"
     validate_checksum=no
-
-- name: Extract logs
-  sudo: no
-  ignore_errors: yes
-  local_action: unarchive src={{ inventory_dir }}/{{ inventory_hostname }}.tar.gz dest={{ inventory_dir }}/{{ inventory_hostname }}
