@@ -1,0 +1,2 @@
+- name: Run neutron-sanity-check
+  shell: neutron-sanity-check --nodnsmasq_version  --config-file /etc/neutron/neutron.conf --config-dir /etc/neutron/conf.d
