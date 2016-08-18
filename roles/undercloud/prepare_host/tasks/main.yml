@@ -61,12 +61,8 @@
   args:
     chdir: "/home/stack"
   shell: "python clapper/instackenv-validator.py -f /home/stack/instackenv.json"
+  ignore_errors: yes
   register: instackenv_validator_result
-
-- name: Fail run if instackenv validation failed
-  fail:
-    msg="istackenv.json validation failed!"
-  when: instackenv_validator_result.stdout.find('SUCCESS') == -1
 
 - name: Get the number of overcloud nodes
   shell: |
