@@ -61,6 +61,7 @@
   args:
     chdir: "/home/stack"
   shell: "python clapper/instackenv-validator.py -f /home/stack/instackenv.json"
+  ignore_errors: yes
   register: instackenv_validator_result
 
 - name: Fail run if instackenv validation failed
