@@ -1,6 +1,10 @@
 - name: Copy TripleO Heat templates to stack home dir
   shell: "cp -a /usr/share/openstack-tripleo-heat-templates /home/stack/tripleo_heat_templates"
 
+# This is workaround for rhbz 1316089
+- name: Change rabbitmq timeout from 200s to 300s
+  shell: "sed -i s/timeout=200s/timeout=300s/g tripleo_heat_templates/puppet/manifests/overcloud_controller_pacemaker.pp"
+
 - name: Deploy overcloud settings file
   template:
     src=overcloud-settings.j2
