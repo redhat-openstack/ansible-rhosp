@@ -8,3 +8,5 @@ archives_locations:
   - /var/log/swift
   - /var/log/manila
   - /var/log/sahara
+  - /home/stack/overcloud_deployment.log
+  - /home/stack/undercloud_installation.log
