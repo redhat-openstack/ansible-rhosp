@@ -4,7 +4,7 @@
     state=directory
 
 - name: Obtain overcloud images
-  shell: "wget --quiet -c -O /home/stack/overcloud_images/{{ item }}.tar http://rhos-release.virt.bos.redhat.com/puddle-images/latest-9.0-images/{{ item }}.tar"
+  shell: "wget --quiet -c -O /home/stack/overcloud_images/{{ item }}.tar http://rhos-release.virt.bos.redhat.com/puddle-images/latest-10.0-images/{{ item }}.tar"
   args:
     chdir: "/home/stack/overcloud_images"
   with_items:

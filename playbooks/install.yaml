@@ -1,6 +1,6 @@
 # Undercloud
 # ----------
-- name: Prepare undercloud for RHOSP 9 installation
+- name: Prepare undercloud for RHOSP 10 installation
   hosts: undercloud
   vars:
     ansible_ssh_user: root
