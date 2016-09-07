@@ -1,2 +1,0 @@
-- name: Install the undercloud
-  shell: openstack undercloud install --debug &> /home/stack/undercloud_installation.log
