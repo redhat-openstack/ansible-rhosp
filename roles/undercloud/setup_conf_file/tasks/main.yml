@@ -13,4 +13,4 @@
     line=local_interface=eth1
 
 - name: Enable all the options which include '192.0.2' network
-  shell: sed -i '/192.0.2/s/#//g' /home/stack/undercloud.conf
+  shell: sed -i '/= 192.0.2/s/#//g' /home/stack/undercloud.conf
