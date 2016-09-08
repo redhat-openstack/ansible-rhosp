@@ -9,7 +9,7 @@
     chdir: "/home/stack/overcloud_images"
   environment:
       DIB_LOCAL_IMAGE: "/home/stack/base_image.qcow2"
-      DIB_YUM_REPO_CONF: "/etc/yum.repos.d/rhos-release-10-director.repo /etc/yum.repos.d/rhos-release-10.repo /etc/yum.repos.d/rhos-release-rhel-{{ ansible_distribution_version }}.repo"
+      DIB_YUM_REPO_CONF: "/etc/yum.repos.d/rhos-release-10.repo /etc/yum.repos.d/rhos-release-rhel-{{ ansible_distribution_version }}.repo"
       NODE_DIST: "rhel7"
       RHOS: 1
       RUN_RHOS_RELEASE: 1
