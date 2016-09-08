@@ -29,7 +29,6 @@
                                 --neutron-public-interface=nic1 \
                                 --timeout=200 \
                                 --ntp-server=pool.ntp.org \
-                                -e /home/stack/tripleo_heat_templates/environments/puppet-pacemaker.yaml \
-                                -e /home/stack/overcloud-settings.yaml &> overcloud_deployment.log
+                                -e /home/stack/tripleo_heat_templates/environments/puppet-pacemaker.yaml &> overcloud_deployment.log
   register: overcloud_deployment_result
   failed_when: overcloud_deployment_result.rc != 0
