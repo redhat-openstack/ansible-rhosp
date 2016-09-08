@@ -1,51 +1,11 @@
-- name: Copy TripleO Heat templates to stack home dir
-  shell: "cp -a /usr/share/openstack-tripleo-heat-templates /home/stack/tripleo_heat_templates"
+- name: Create overcloud_images directory
+  file:
+    path=/home/stack/overcloud_images
+    state=directory
 
-- name: Deploy overcloud settings file
-  template:
-    src=overcloud-settings.j2
-    dest=/home/stack/overcloud-settings.yaml
-    mode=0755
+- include: "{{ image_action | default('import') }}.yml"
 
-- name: Create baremetal flavor for overcloud nodes deployment
+- name: Upload images to Glance
   shell: >
     source /home/stack/stackrc;
-    openstack flavor delete baremetal;
-    openstack flavor create --id auto --ram 4096 --disk 40 --vcpus 1 baremetal;
-    openstack flavor set --property "cpu_arch"="x86_64" --property "capabilities:boot_option"="local" baremetal;
-
-- name: Register subnet uuid
-  shell: >
-    source /home/stack/stackrc;
-    neutron subnet-list | grep 192.0.2 | sed -e 's/|//g' | awk '{print $1}'
-  register: subnet_uuid
-
-- name: Register undercloud nameserver
-  become: yes
-  become_method: sudo
-  shell: cat /etc/resolv.conf | grep -m 1 'nameserver' | sed -n -e 's/^.*nameserver //p'
-  register: nameserver
-
-- name: Set nameserver for overcloud subnet
-  shell: >
-    source /home/stack/stackrc;
-    neutron subnet-update {{ subnet_uuid.stdout }} --dns-nameserver {{ nameserver.stdout }}
-
-- name: Change MTU for overcloud nics
-  become: yes
-  become_method: sudo
-  lineinfile:
-    dest=/etc/dnsmasq-ironic.conf
-    state=present
-    insertafter=EOF
-    line='dhcp-option-force=26,1450'
-
-- name: Restart neutron-dhcp-agent and openstack-ironic-inspector-dnsmasq
-  become: yes
-  become_method: sudo
-  service:
-    name="{{ item }}"
-    state=restarted
-  with_items:
-    - "neutron-dhcp-agent"
-    - "openstack-ironic-inspector-dnsmasq"
+    openstack overcloud image upload --image-path /home/stack/overcloud_images/
