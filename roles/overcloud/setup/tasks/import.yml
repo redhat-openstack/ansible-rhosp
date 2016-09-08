@@ -1,6 +1,6 @@
 - name: Obtain overcloud images
   get_url:
-    url="http://rhos-release.virt.bos.redhat.com/puddle-images/latest-9.0-images/{{ item }}.tar"
+    url="http://rhos-release.virt.bos.redhat.com/puddle-images/latest-10.0-images/{{ item }}.tar"
     dest="/home/stack/overcloud_images"
   with_items:
     - 'ironic-python-agent'
