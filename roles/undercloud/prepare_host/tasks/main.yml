@@ -66,7 +66,7 @@
 - name: Set MTU to 1450
   shell: >
     ip link set {{ item }} mtu 1450;
-    echo "MTU=1450" >> /etc/sysconfig/network-scripts/ifcfg-{{ item }}
+    sed -i 's/1500/1450/g' /etc/os-net-config/config.json;
   with_items:
     - 'eth1'
     - 'eth2'
