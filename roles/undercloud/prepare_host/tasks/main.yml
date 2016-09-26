@@ -61,16 +61,6 @@
     - python-dracclient
     - wget
 
-# Set MTU
-# -------
-- name: Set MTU to 1450
-  shell: >
-    ip link set {{ item }} mtu 1450;
-    echo "MTU=1450" >> /etc/sysconfig/network-scripts/ifcfg-{{ item }}
-  with_items:
-    - 'eth1'
-    - 'eth2'
-
 # Prepare instackenv.json
 # -----------------------
 - name: Download instackenv validator
