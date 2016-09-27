@@ -1,0 +1,10 @@
+# Both Undercloud and Overcloud nodes
+# -----------------------------------
+- name: Change SElinux mode
+  become: yes
+  become_method: sudo
+  hosts: undercloud, overcloud
+  vars:
+    selinux_mode: "permissive"
+  roles:
+    - { role: set_selinux }
