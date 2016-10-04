@@ -77,11 +77,6 @@
   shell: "python clapper/instackenv-validator.py -f /home/stack/instackenv.json"
   register: instackenv_validator_result
 
-- name: Fail run if instackenv validation failed
-  fail:
-    msg="istackenv.json validation failed!"
-  when: instackenv_validator_result.stdout.find('SUCCESS') == -1
-
 - name: Get the number of overcloud nodes
   shell: |
     export IP_LENGTH=(`cat /home/stack/instackenv.json | grep -o 'pm_addr.*' | cut -f2-  -d':' | wc -l`);
