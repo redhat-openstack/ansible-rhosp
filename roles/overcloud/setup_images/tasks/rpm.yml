@@ -1,0 +1,17 @@
+- name: Install the RPM which provides the pre-built overcloud images
+  become: yes
+  yum:
+    name="rhosp-director-images"
+    state=present
+
+- name: Extract tar files
+  become: yes
+  unarchive:
+    src="/usr/share/rhosp-director-images/{{ item }}.tar"
+    dest="/home/stack/overcloud_images"
+    copy=no
+    owner=stack
+    group=stack
+  with_items:
+    - 'ironic-python-agent'
+    - 'overcloud-full'
