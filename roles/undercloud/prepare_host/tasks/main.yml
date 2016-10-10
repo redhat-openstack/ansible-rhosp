@@ -47,6 +47,10 @@
   delegate_to: localhost
   when: update.changed
 
+# Workaround for OSP 10
+- name: Install python-tripleoclient
+  shell: sudo yum install -y http://buildlogs.centos.org/centos/7/cloud/x86_64/openstack-newton/python-tripleoclient-5.2.1-0.1.34590ccgit.el7.noarch.rpm;
+
 # Although we are not using drac, it is required to start ironic-conductor successfully
 - name: Install IPMI, git, wget and passlib
   yum:
@@ -57,7 +61,6 @@
     - OpenIPMI
     - OpenIPMI-tools
     - python-passlib
-    - python-tripleoclient
     - python-dracclient
     - wget
 
