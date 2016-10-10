@@ -3,7 +3,7 @@
     path=/home/stack/overcloud_images
     state=directory
 
-- include: "{{ image_action | default('import') }}.yml"
+- include: "{{ image_action | default('rpm') }}.yml"
 
 - name: Upload images to Glance
   shell: >
