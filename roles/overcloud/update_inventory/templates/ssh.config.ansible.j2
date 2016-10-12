@@ -1,9 +1,18 @@
 {% for host in groups["overcloud"] %}
 Host {{ host }}
-    ProxyCommand ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -o ConnectTimeout=60 -i ~/.ssh/id_rsa -F ssh.config.ansible stack@{{ hostvars[groups['undercloud'][0]].ansible_ssh_host }} -W {{ hostvars[host].ansible_fqdn }}:22
-    IdentityFile files/id_rsa_overcloud
-    IdentitiesOnly yes
+    HostName {{ hostvars[host].ansible_ssh_host }}
+    IdentityFile /home/rhos-ci/.ssh/rhos-jenkins/id_rsa
     User heat-admin
     StrictHostKeyChecking no
     UserKnownHostsFile=/dev/null
+    ForwardAgent yes
+    ProxyCommand ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -W %h:%p -i /home/rhos-ci/.ssh/rhos-jenkins/id_rsa -F ssh.config.ansible stack@{{ hostvars[groups['undercloud'][0]].ansible_ssh_host }}
 {%endfor %}
+
+Host 10.0.* 192.0.*
+    ProxyCommand ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -W %h:%p -i /home/rhos-ci/.ssh/rhos-jenkins/id_rsa stack@{{ hostvars[groups['undercloud'][0]].ansible_ssh_host }}
+    ControlMaster   yes
+    ControlPath     {{ inventory_dir }}/%r@%h:%p
+    ControlPersist  15m
+    StrictHostKeyChecking no
+    UserKnownHostsFile=/dev/null
