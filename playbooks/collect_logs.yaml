@@ -3,6 +3,9 @@
 - name: Collect logs
   become: yes
   become_method: sudo
-  hosts: undercloud, overcloud
+  hosts: overcloud, undercloud
+  tasks:
+    - name: Ping host
+      ping:
   roles:
     - { role: collect_logs }
