@@ -1,5 +1,13 @@
 # Both Undercloud and Overcloud nodes
 # -----------------------------------
+
+# Workaround for this bug: https://github.com/ansible/ansible/issues/17349
+- name: Ping bastion host
+  hosts: undercloud
+  tasks:
+    - name: Ping the undercloud
+      ping:
+
 - name: Collect logs
   become: yes
   become_method: sudo
