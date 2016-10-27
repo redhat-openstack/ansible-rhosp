@@ -1,0 +1,15 @@
+- name: Obtain overcloud images
+  get_url:
+    url="http://rhos-release.virt.bos.redhat.com/puddle-images/latest-8.0-images/{{ item }}.tar" 
+    dest="/home/stack/overcloud_images"
+  with_items:
+    - 'ironic-python-agent'
+    - 'overcloud-full'
+
+- name: Extract tar files
+  unarchive:
+    src="/home/stack/overcloud_images/{{ item }}.tar"
+    dest="/home/stack/overcloud_images"
+  with_items:
+    - 'ironic-python-agent'
+    - 'overcloud-full'
