@@ -15,3 +15,23 @@
   with_items:
     - 'ironic-python-agent'
     - 'overcloud-full'
+
+- name: Check if there are patched RPMs
+  stat:
+    path="/patched_rpms"
+    register: patched_rpms
+
+- name: Install libguestfs-tools for editing the images
+  yum:
+    name=libguestfs-tools
+    state=present
+  when: patched_rpms.stat.isdir
+
+- name: Inject patches to overcloud full image
+  shell: >
+    virt-copy-in /patched_rpms / -a overcloud-full.qcow2;
+    virt-customize --upload /etc/yum.repos.d/patched_rpms.repo:/etc/yum.repos.d/patched_rpms.repo -a overcloud-full.qcow2;
+    virt-customize --update -a overcloud-full.qcow2
+  args:
+  chdir: "/home/stack/overcloud_images"
+  when: patched_rpms.stat.isdir
