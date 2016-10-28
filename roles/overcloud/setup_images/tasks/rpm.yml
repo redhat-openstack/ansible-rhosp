@@ -6,10 +6,10 @@
     - 'ironic-python-agent'
     - 'overcloud-full'
 
-- name: Extract tar files
-  unarchive:
-    src="/home/stack/overcloud_images/{{ item }}.tar"
-    dest="/home/stack/overcloud_images"
+#TODO(abregman): try to switch back to unarchive at some point unless it still
+#                fails unarchive the images tar files.
+- name: Unarchive images tar files
+  shell: tar xvf /home/stack/overcloud_images/{{ item }} -C /home/stack/overcloud_images
   with_items:
-    - 'ironic-python-agent'
-    - 'overcloud-full'
+    - 'ironic-python-agent.tar'
+    - 'overcloud-full.tar'
