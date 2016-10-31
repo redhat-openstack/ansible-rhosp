@@ -1,0 +1,8 @@
+Verified+1: Arie Bregman <abregman@redhat.com>
+Code-Review+1: Michal Pryc <mpryc@redhat.com>
+Code-Review+2: Arie Bregman <abregman@redhat.com>
+Submitted-by: Arie Bregman <abregman@redhat.com>
+Submitted-at: Mon, 31 Oct 2016 13:23:55 -0400
+Reviewed-on: https://review.gerrithub.io/300273
+Project: redhat-openstack/ansible-rhosp
+Branch: refs/heads/stable/9
