@@ -13,7 +13,7 @@
     openstack overcloud deploy --debug \
                                 --log-file overcloud_deployment.log \
                                 --templates tripleo_heat_templates \
-                                --libvirt-type=qemu \
+                                --libvirt-type=KVM \
                                 --control-scale {{ controller_nodes }} \
                                 --compute-scale {{ compute_nodes }} \
                                 --ceph-storage-scale {{ ceph_nodes }} \
