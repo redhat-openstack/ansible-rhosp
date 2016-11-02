@@ -7,29 +7,15 @@
   retries: 10
   delay: 10
 
+- name: Create overcloud deploy script
+  template:
+    src="deploy_overcloud.j2"
+    dest="/home/stack/deploy_overcloud.sh"
+    mode=0755
+
 - name: Deploy Overcloud
   shell: >
     source /home/stack/stackrc;
-    openstack overcloud deploy --debug \
-                                --log-file overcloud_deployment.log \
-                                --templates tripleo_heat_templates \
-                                --libvirt-type=kvm \
-                                --control-scale {{ controller_nodes }} \
-                                --compute-scale {{ compute_nodes }} \
-                                --ceph-storage-scale {{ ceph_nodes }} \
-                                --block-storage-scale {{ block_storage_nodes }} \
-                                --swift-storage-scale {{ swift_nodes }} \
-                                --control-flavor baremetal \
-                                --compute-flavor baremetal \
-                                --ceph-storage-flavor baremetal \
-                                --block-storage-flavor baremetal \
-                                --swift-storage-flavor baremetal \
-                                --neutron-network-type vxlan \
-                                --neutron-tunnel-types vxlan \
-                                --neutron-public-interface=nic1 \
-                                --timeout=200 \
-                                --ntp-server=pool.ntp.org \
-                                -e /home/stack/user_templates/debug.yaml \
-                                -e /home/stack/tripleo_heat_templates/environments/puppet-pacemaker.yaml &> overcloud_deployment.log
+    bash /home/stack/deploy_overcloud.sh &> overcloud_deployment.log
   register: overcloud_deployment_result
   failed_when: overcloud_deployment_result.rc != 0
