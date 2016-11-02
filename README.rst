@@ -31,9 +31,9 @@ Usage
 
 Install RHOSP 10
 ^^^^^^^^^^^^^^^^
-#. Specify the number of nodes you would like to install in ansible-rhosp.cfg::
+#. Specify the number of nodes you would like to install in ansible-rhosp.yml::
 
-    vi ansible-rhosp.cfg
+    vi ansible-rhosp.yml
 
     controller_nodes: 1
     compute_nodes: 1
@@ -43,4 +43,4 @@ Install RHOSP 10
 
 #. Run the following command::
 
-    ansible-playbook -i hosts playbooks/install.yaml -e @ansible-rhosp.cfg
+    ansible-playbook -i hosts playbooks/install.yaml -e @ansible-rhosp.yml
