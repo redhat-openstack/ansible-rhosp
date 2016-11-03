@@ -23,4 +23,4 @@ Install RHOSP
 
 #. Run the following command::
 
-    ansible-playbook -i hosts playbooks/install.yaml -e @ansible-rhosp.cfg
+    ansible-playbook -i hosts playbooks/install.yaml -e @ansible-rhosp.yml
