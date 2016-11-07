@@ -11,4 +11,8 @@ image_action: build
 
 # Enable specific features
 # -----------------------
+# neutron
 dvr: no
+
+# cinder
+cinder_backup_service: no
