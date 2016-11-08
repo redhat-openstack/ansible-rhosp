@@ -22,6 +22,30 @@
       "revId": "c7069238e46463af7e2849938064cc32f13ad3a4",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "baa041b7_c23950a5",
+        "filename": "ansible-rhosp.yml",
+        "patchSetId": 4
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1006664
+      },
+      "writtenOn": "2016-11-08T18:10:42Z",
+      "side": 1,
+      "message": "Fixed",
+      "parentUuid": "baa041b7_37fa7c44",
+      "range": {
+        "startLine": 18,
+        "startChar": 25,
+        "endLine": 18,
+        "endChar": 26
+      },
+      "revId": "c7069238e46463af7e2849938064cc32f13ad3a4",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
     }
   ]
 }
