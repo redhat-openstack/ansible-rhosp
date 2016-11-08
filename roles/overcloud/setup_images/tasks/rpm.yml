@@ -26,7 +26,7 @@
   yum:
     name=libguestfs-tools
     state=present
-  when: patched_rpms.stat.isdir
+  when: patched_rpms.stat.isdir is defined and patched_rpms.stat.isdir
 
 - name: Inject patches to overcloud full image
   shell: >
