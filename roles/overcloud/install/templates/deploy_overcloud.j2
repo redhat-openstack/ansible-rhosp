@@ -22,3 +22,9 @@ openstack overcloud deploy --debug \
 {% if dvr is defined and dvr %}
 -e /home/stack/tripleo_heat_templates/environments/neutron-ovs-dvr.yaml \
 {% endif %}
+{% if cinder_backup is defined and cinder_backup %}
+-e /home/stack/tripleo_heat_templates/environments/cinder-backup.yaml \
+{% endif %}
+{% if deploy_ceph is defined and deploy_ceph %}
+-e /home/stack/tripleo_heat_templates/environments/ceph.yaml \
+{% endif %}

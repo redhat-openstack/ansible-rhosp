@@ -11,4 +11,11 @@ image_action: rpm
 
 # Enable specific features
 # -----------------------
+# neutron
 dvr: no
+
+# cinder
+cinder_backup: no
+
+# ceph
+deploy_ceph: no
