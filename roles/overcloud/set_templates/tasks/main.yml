@@ -1,0 +1,11 @@
+- name: Create user defined templates directory
+  file:
+    path=/home/stack/user_templates
+    state=directory
+    mode=0755
+
+- name: Set debug template
+  become: yes
+  copy:
+    src=debug.yaml
+    dest='/home/stack/user_templates/debug.yaml'
