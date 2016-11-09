@@ -19,9 +19,12 @@ openstack overcloud deploy --debug \
 --ntp-server=pool.ntp.org \
 -e /home/stack/user_templates/debug.yaml \
 -e /home/stack/tripleo_heat_templates/environments/puppet-pacemaker.yaml \
+{% if dvr is defined and dvr %}
+-e /home/stack/tripleo_heat_templates/environments/neutron-ovs-dvr.yaml \
+{% endif %}
 {% if cinder_backup_service is defined and cinder_backup_service %}
 -e /home/stack/tripleo_heat_templates/environments/cinder-backup.yaml \
 {% endif %}
-{% if dvr is defined and dvr %}
--e /home/stack/tripleo_heat_templates/environments/neutron-ovs-dvr.yaml \
+{% if deploy_ceph_backend is defined and deploy_ceph_backend %}
+-e /home/stack/tripleo_heat_templates/environments/ceph.yaml \
 {% endif %}

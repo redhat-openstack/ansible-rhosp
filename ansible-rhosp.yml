@@ -16,3 +16,6 @@ dvr: no
 
 # cinder
 cinder_backup_service: no
+
+# ceph
+deploy_ceph_backend: no

@@ -1,0 +1,14 @@
+parameter_defaults:
+    CinderEnableIscsiBackend: false
+    CinderEnableRbdBackend: true
+    CinderEnableNfsBackend: false
+    NovaEnableRbdBackend: true
+    GlanceBackend: rbd
+    GlanceBackend: rbd
+    CinderRbdPoolName: "volumes"
+    NovaRbdPoolName: "vms"
+    GlanceRbdPoolName: "images"
+    ExtraConfig:
+      ceph::profile::params::osds:
+       '/dev/vdb':
+           journal: ''

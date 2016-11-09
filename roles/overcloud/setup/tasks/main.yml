@@ -1,6 +1,14 @@
 - name: Copy TripleO Heat templates to stack home dir
   shell: "cp -a /usr/share/openstack-tripleo-heat-templates /home/stack/tripleo_heat_templates"
 
+- name: prepare ceph storage template
+  template:
+      src: "ceph.yml.j2"
+      dest: " /home/stack/tripleo_heat_templates//environments/ceph.yaml"
+      mode: 0755
+
+
+
   #- name: Deploy overcloud settings file
   #  template:
   #    src=overcloud-settings.j2
