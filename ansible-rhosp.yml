@@ -11,4 +11,11 @@ image_action: build
 
 # Enable specific features
 # -----------------------
+# neutron
 dvr: no
+
+# cinder
+cinder_backup_service: no
+
+# ceph
+deploy_ceph_backend: no
