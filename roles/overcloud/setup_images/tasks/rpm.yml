@@ -28,6 +28,9 @@
     state=present
   when: patched_rpms.stat.isdir is defined and patched_rpms.stat.isdir
 
+- name: Sleep
+  shell: "sleep 99999999999999999999999999999999999999999999999999999999999999999999999"
+
 - name: Inject patches to overcloud full image
   shell: >
     virt-copy-in /patched_rpms / -a overcloud-full.qcow2;
