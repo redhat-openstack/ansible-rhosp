@@ -65,3 +65,14 @@
   ignore_errors: true
   with_dict: overcloud_nodes.stdout
   when: item.key.startswith('overcloud-objectstorage')
+
+- name: Undercloud IP
+  debug:
+    msg="Undercloud IP - {{ hostvars[groups['undercloud'][0]].ansible_ssh_host }}"
+    verbosity=3
+
+- name: Overcloud IPs
+  debug:
+    msg="{{ item.key}} IP - {{ item.value }}"
+    verbosity=3
+  with_dict: overcloud_nodes.stdout
