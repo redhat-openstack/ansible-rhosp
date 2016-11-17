@@ -1,0 +1,8 @@
+# Overcloud / Compute
+# ---------
+- name: Post overcloud - compute
+  become: yes
+  become_method: sudo
+  hosts: compute
+  roles:
+    - { role: overcloud/enable_nova_user }
