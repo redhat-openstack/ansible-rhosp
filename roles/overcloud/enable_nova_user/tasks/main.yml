@@ -1,0 +1,36 @@
+- name: Enable login for nova user
+  user:
+    name: nova
+    shell: /bin/bash
+
+# manage_dir tells to create all required directories if required
+# and set the owner and permissions of that directory
+- name: Set up authorized_keys for the nova user
+  authorized_key:
+    user: nova
+    key: "{{ inventory_dir }}/files/authorized_keys_overcloud"
+    manage_dir: yes
+
+- name: Copy private key and authorized_keys file
+  copy:
+    src: "{{ inventory_dir }}/files/{{ item.filename }}_overcloud"
+    dest: /var/lib/nova/.ssh/{{ item.filename }}
+    owner: nova
+    group: nova
+    mode: 0600
+  with_items:
+    - { filename: 'id_rsa' }
+
+- name: Get ssh keys from overcloud nodes
+  shell: >
+    ssh-keyscan -t rsa $(os-apply-config --key hosts --type raw --key-default '' |sed 's/^\\n//' | awk '{print $1}' | uniq)
+  register: overcloud_keys
+
+- name: Add ssh keys of overcloud nodes into known hosts
+  blockinfile:
+    dest: /etc/ssh/ssh_known_hosts
+    create: yes
+    owner: root
+    group: root
+    block: |
+      {{ overcloud_keys.stdout }}
