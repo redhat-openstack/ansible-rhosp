@@ -5,6 +5,12 @@
     dest="{{ inventory_dir }}/files/id_rsa_overcloud"
     flat=yes
 
+- name: Fetch undercloud public key
+  fetch:
+    src=~/.ssh/authorized_keys
+    dest="{{ inventory_dir }}/files/authorized_keys_overcloud"
+    flat=yes
+
 - name: Deploy get-overcloud-nodes.py on undercloud
   template:
     src=get-overcloud-nodes.py.j2
