@@ -1,0 +1,7 @@
+# Overcloud / Compute
+# ---------
+- name: Enable SSH communication between compute nodes
+  become: yes
+  hosts: compute
+  roles:
+    - { role: overcloud/enable_nova_user }
