@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "baa041b7_fb2616b8",
+        "filename": "playbooks/enable_ssh_between_compute.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1004788
+      },
+      "writtenOn": "2016-11-17T13:36:23Z",
+      "side": 1,
+      "message": "The name should imply on what this playbook invokes, like: \"setup SSH between compute nodes\"",
+      "range": {
+        "startLine": 3,
+        "startChar": 0,
+        "endLine": 3,
+        "endChar": 32
+      },
+      "revId": "1172295d40618e60c9d2719a3b82f3b8e2c0bc07",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "baa041b7_9b114a56",
+        "filename": "playbooks/enable_ssh_between_compute.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1004788
+      },
+      "writtenOn": "2016-11-17T13:36:23Z",
+      "side": 1,
+      "message": "no need",
+      "range": {
+        "startLine": 5,
+        "startChar": 2,
+        "endLine": 5,
+        "endChar": 21
+      },
+      "revId": "1172295d40618e60c9d2719a3b82f3b8e2c0bc07",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "baa041b7_5b1bc273",
+        "filename": "playbooks/enable_ssh_between_compute.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1004788
+      },
+      "writtenOn": "2016-11-17T13:36:23Z",
+      "side": 1,
+      "message": "I\u0027m not sure it promises that the order would always be undercloud and then overcloud, better to verify that.\n\nIn case it\u0027s don\u0027t and you need to apply first for overcloud, separate to two tasks:\n\n- name: SSH between computes - undercloud\n- name: SSH between computes - overcloud compute",
+      "range": {
+        "startLine": 6,
+        "startChar": 2,
+        "endLine": 6,
+        "endChar": 28
+      },
+      "revId": "1172295d40618e60c9d2719a3b82f3b8e2c0bc07",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "baa041b7_7b3326f8",
+        "filename": "roles/overcloud/enable_nova_user/tasks/main.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1004788
+      },
+      "writtenOn": "2016-11-17T13:36:23Z",
+      "side": 1,
+      "message": "You probably can use the user module (even if the user already exists):\n\n- user: name\u003dnova generate_ssh_key\u003dyes ssh_key_file\u003d.ssh/id_rsa",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 13
+      },
+      "revId": "1172295d40618e60c9d2719a3b82f3b8e2c0bc07",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "baa041b7_bb208e9b",
+        "filename": "roles/overcloud/enable_nova_user/tasks/main.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1004788
+      },
+      "writtenOn": "2016-11-17T13:36:23Z",
+      "side": 1,
+      "message": "This will download the files to the slave + it can be one task using with_items.",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 13
+      },
+      "revId": "1172295d40618e60c9d2719a3b82f3b8e2c0bc07",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
