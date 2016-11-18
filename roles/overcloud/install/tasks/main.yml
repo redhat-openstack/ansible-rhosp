@@ -13,6 +13,9 @@
     dest="/home/stack/deploy_overcloud.sh"
     mode=0755
 
+- name: sleep
+  shell: "sleep 999999"
+
 - name: Deploy Overcloud
   shell: >
     source /home/stack/stackrc;
