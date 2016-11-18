@@ -30,22 +30,3 @@
   shell: >
     source /home/stack/stackrc;
     neutron subnet-update {{ subnet_uuid.stdout }} --dns-nameserver {{ nameserver.stdout }}
-
-- name: Change MTU for overcloud nics
-  become: yes
-  become_method: sudo
-  lineinfile:
-    dest=/etc/dnsmasq-ironic.conf
-    state=present
-    insertafter=EOF
-    line='dhcp-option-force=26,1450'
-
-- name: Restart neutron-dhcp-agent and openstack-ironic-inspector-dnsmasq
-  become: yes
-  become_method: sudo
-  service:
-    name="{{ item }}"
-    state=restarted
-  with_items:
-    - "neutron-dhcp-agent"
-    - "openstack-ironic-inspector-dnsmasq"
