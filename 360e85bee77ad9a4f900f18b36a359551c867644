@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9aa53dc9_6eff3f35",
+        "filename": "playbooks/enable_ssh_nova.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1004788
+      },
+      "writtenOn": "2016-11-20T06:45:34Z",
+      "side": 1,
+      "message": "meaningful name as it appears in the console output",
+      "range": {
+        "startLine": 3,
+        "startChar": 2,
+        "endLine": 3,
+        "endChar": 32
+      },
+      "revId": "360e85bee77ad9a4f900f18b36a359551c867644",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9aa53dc9_8e02833d",
+        "filename": "playbooks/enable_ssh_nova.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1004788
+      },
+      "writtenOn": "2016-11-20T06:45:34Z",
+      "side": 1,
+      "message": "not needed",
+      "range": {
+        "startLine": 5,
+        "startChar": 2,
+        "endLine": 5,
+        "endChar": 21
+      },
+      "revId": "360e85bee77ad9a4f900f18b36a359551c867644",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9aa53dc9_4efc7b3e",
+        "filename": "roles/overcloud/enable_nova_user/tasks/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1004788
+      },
+      "writtenOn": "2016-11-20T06:45:34Z",
+      "side": 1,
+      "message": "can be replaced with one task",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 14
+      },
+      "revId": "360e85bee77ad9a4f900f18b36a359551c867644",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
