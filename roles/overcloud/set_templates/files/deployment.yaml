@@ -1,3 +1,4 @@
 ---
 parameter_defaults:
     Debug: true
+    NeutronGlobalPhysnetMtu: 1450

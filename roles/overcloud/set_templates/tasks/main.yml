@@ -4,8 +4,8 @@
     state=directory
     mode=0755
 
-- name: Set debug template
+- name: Set deployment template
   become: yes
   copy:
-    src=debug.yaml
-    dest='/home/stack/user_templates/debug.yaml'
+    src=deployment.yaml
+    dest='/home/stack/user_templates/deployment.yaml'
