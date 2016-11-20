@@ -68,6 +68,24 @@
       "revId": "360e85bee77ad9a4f900f18b36a359551c867644",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9aa53dc9_8e7723d4",
+        "filename": "roles/overcloud/enable_nova_user/tasks/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1008329
+      },
+      "writtenOn": "2016-11-20T09:38:30Z",
+      "side": 1,
+      "message": "I didn\u0027t know about generate_ssh_key option for user task, quite useful.",
+      "parentUuid": "9aa53dc9_4efc7b3e",
+      "revId": "360e85bee77ad9a4f900f18b36a359551c867644",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
     }
   ]
 }
