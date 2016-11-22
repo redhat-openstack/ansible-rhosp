@@ -1,3 +1,4 @@
 ---
 parameter_defaults:
     Debug: true
+    NeutronTenantMtu: 1450

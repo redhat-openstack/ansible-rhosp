@@ -29,7 +29,7 @@
                                 --neutron-public-interface=nic1 \
                                 --timeout=200 \
                                 --ntp-server=pool.ntp.org \
-                                -e /home/stack/user_templates/debug.yaml \
+                                -e /home/stack/user_templates/deployment.yaml \
                                 -e /home/stack/tripleo_heat_templates/environments/puppet-pacemaker.yaml \
                                 -e /home/stack/overcloud-settings.yaml &> overcloud_deployment.log
   register: overcloud_deployment_result
