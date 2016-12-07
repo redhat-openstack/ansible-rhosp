@@ -25,3 +25,4 @@ openstack overcloud deploy --debug \
 {% if cinder_backup is defined and cinder_backup %}
 -e /home/stack/tripleo_heat_templates/environments/cinder-backup.yaml \
 {% endif %}
+-e /home/stack/tripleo_heat_templates/environments/manila-cephfsnative-config.yaml
