@@ -1,0 +1,6 @@
+---
+- name: determine if node is registered with subscription-manager.
+  command: subscription-manager identity
+  register: subscription
+  changed_when: false
+
