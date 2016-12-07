@@ -16,3 +16,6 @@ dvr: no
 
 # cinder
 cinder_backup: no
+
+# manila with ceph backend
+manila_cephfsnative: no
