@@ -1,0 +1,64 @@
+- name: setup rhscon.repo
+  template: src=rhscon.repo.j2 dest=/etc/yum.repos.d/rhscon.repo
+- name: setup cephmon.repo
+  template: src=cephmon.repo.j2 dest=/etc/yum.repos.d/cephmon.repo
+- name: setup cephosd.repo
+  template: src=cephosd.repo.j2 dest=/etc/yum.repos.d/cephosd.repo
+- name: setup cephtools.repo
+  template: src=cephtools.repo.j2 dest=/etc/yum.repos.d/cephtools.repo
+- name: setup rhos-release-rhel-7.3.repo
+  template: src=rhos-release-rhel-7.3.repo.j2 dest=/etc/yum.repos.d/rhos-release-rhel-7.3.repo
+
+- name: Creates /etc/ceph directory
+  file: path=/etc/ceph state=directory
+
+- name: create  contoller.ceph.client.admin.keyring.j2
+  template: src=controller.ceph.client.admin.keyring.j2 dest=/etc/ceph/ceph.client.admin.keyring
+
+- name: create  contoller.ceph.client.openstack.keyring.j2
+  template: src=controller.ceph.client.openstack.keyring.j2 dest=/etc/ceph/ceph.client.openstack.keyring
+
+- name: create  ccontroller.ceph.conf.j2
+  template: src=controller.ceph.conf.j2 dest=/etc/ceph/ceph.conf
+
+- name: install the ceph client packages
+  yum: name={{ item }} state=latest
+  with_items:
+  - ceph-deploy
+  - ceph-common
+  - ceph-mon
+  - ceph-osd
+  - leveldb
+  - librados2
+  - librbd1
+  - python-flask
+  - python-jinja2
+  - python-rados
+  - python-rbd
+
+- name: install ceph client
+  shell: ceph-deploy install ceph-client
+  ignore_errors: yes
+
+- name: ceph version
+  shell: ceph version | awk '{print $3; }'
+  register: ceph_version
+
+- debug: msg="{{ ceph_version.stdout }}"
+
+- name: Fail if wrong version of ceph was installed
+  fail: msg="Wrong ceph version"
+  when: ceph_version.stdout != "10.2.1-13.el7cp"
+
+- name: Workaround. Fix ceph cluster health by reducing the number of replicas in each pool
+  shell:  ceph osd pool set rbd size 1; ceph osd pool set cephfs_data size 1; ceph osd pool set cephfs_metadata size 1
+
+- name: record ceph cluster health status
+  shell:  ceph -s | grep health | awk '{print $2; }'
+  register: ceph_health_status
+
+- debug: msg="{{ ceph_health_status.stdout }}"
+
+- name: Fail if ceph cluster is not healthy
+  fail: msg="Ceph cluster is not healthy"
+  when: ceph_health_status.stdout != "HEALTH_OK"
