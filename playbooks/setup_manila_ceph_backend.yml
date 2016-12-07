@@ -1,0 +1,156 @@
+---
+- name: Install cephclient on controller
+  hosts: controller
+  become: True
+  roles:
+    - { role: ceph }
+
+- name: check Manila services are running
+  hosts: undercloud
+  become: True
+  tasks:
+  - name: install openstack-utils
+    yum:
+      name: openstack-utils
+      state: present
+
+  - name:  Verify that manila services are running and that openstack looks sane
+    shell: source /home/stack/overcloudrc; manila service-list; openstack-status
+    register: openstack_status
+
+  - debug: msg="{{ openstack_status.stdout }}"
+
+
+- name: Continue to configure Manila with Cephfs backend
+  hosts: controller
+  become: True
+  tasks:
+  - stat: path=/etc/ceph/manila.keyring
+    register: manila_keyring
+
+  - name: Copy all file
+    shell: MON_CAPS_='allow r, allow command "auth del", allow command "auth caps", allow command "auth get", allow command "auth get-or-create"'; echo $MON_CAPS_; ceph auth get-or-create client.manila -o manila.keyring mds 'allow *'  osd 'allow rw'  mon "$MON_CAPS_"
+    when: manila_keyring.stat.exists == False
+
+  - name: Move manila.keyring file to /etc/ceph
+    shell: mv manila.keyring /etc/ceph
+    when: manila_keyring.stat.exists == False
+
+  - name: Change owner and group attributes of the manila.keyring file
+    shell: chown manila.manila /etc/ceph/manila.keyring
+    when: manila_keyring.stat.exists == False
+
+ # - fail: msg="Stop here"
+  - name: StartHere
+    shell: ls
+
+  - name: Add manila related configuration options to /etc/ceph/ceph.conf
+    ini_file:
+       dest: "/etc/ceph/ceph.conf"
+       section: "client.manila"
+       option: "client mount uid"
+       value: "0"
+  - ini_file:
+       dest: "/etc/ceph/ceph.conf"
+       section: "client.manila"
+       option: "client mount gid"
+       value: "0"
+  - ini_file:
+       dest: "/etc/ceph/ceph.conf"
+       section: "client.manila"
+       option: "log file"
+       value: "/opt/stack/logs/ceph-client.manila.log"
+  - ini_file:
+       dest: "/etc/ceph/ceph.conf"
+       section: "client.manila"
+       option: "admin socket"
+       value: "/opt/stack/status/stack/ceph-$name.$pid.asok"
+  - ini_file:
+       dest: "/etc/ceph/ceph.conf"
+       section: "client.manila"
+       option: "keyring"
+       value: "/etc/ceph/manila.keyring"
+
+  - name: allow new snapshots
+    shell: ceph mds set allow_new_snaps true --yes-i-really-mean-it
+
+  - name: Edit /etc/manila/manila.conf - ceph section
+    ini_file:
+       dest: "/etc/manila/manila.conf"
+       section: "ceph_native"
+       option: "share_backend_name"
+       value: "ceph_native"
+  - ini_file:
+       dest: "/etc/manila/manila.conf"
+       section: "ceph_native"
+       option: "driver_handles_share_servers"
+       value: "False"
+  - ini_file:
+       dest: "/etc/manila/manila.conf"
+       section: "ceph_native"
+       option: "share_driver"
+       value: "manila.share.drivers.cephfs.cephfs_native.CephFSNativeDriver"
+  - ini_file:
+       dest: "/etc/manila/manila.conf"
+       section: "ceph_native"
+       option: "cephfs_conf_path"
+       value: "/etc/ceph/ceph.conf"
+  - ini_file:
+       dest: "/etc/manila/manila.conf"
+       section: "ceph_native"
+       option: "cephfs_auth_id"
+       value: "manila"
+  - ini_file:
+       dest: "/etc/manila/manila.conf"
+       section: "ceph_native"
+       option: "cephfs_cluster_name"
+       value: "ceph"
+  - ini_file:
+       dest: "/etc/manila/manila.conf"
+       section: "ceph_native"
+       option: "cephfs_enable_snapshots"
+       value: "True"
+
+  - name: Edit /etc/manila/manila.conf - default section
+    ini_file:
+       dest: "/etc/manila/manila.conf"
+       section: "DEFAULT"
+       option: "default_share_type"
+       value: "default_share_type"
+  - ini_file:
+       dest: "/etc/manila/manila.conf"
+       section: "DEFAULT"
+       option: "enabled_share_backends"
+       value: "ceph_native"
+  - ini_file:
+       dest: "/etc/manila/manila.conf"
+       section: "DEFAULT"
+       option: "enabled_share_protocols"
+       value: "NFS,CIFS,CEPHFS"
+  - ini_file:
+       dest: "/etc/manila/manila.conf"
+       section: "DEFAULT"
+       option: "debug"
+       value: "True"
+  - ini_file:
+       dest: "/etc/manila/manila.conf"
+       section: "DEFAULT"
+       option: "verbose"
+       value: "True"
+
+  - name: Edit /etc/manila/manila.conf - oslo_conncurrency section
+    ini_file:
+       dest: "/etc/manila/manila.conf"
+       section: "oslo_concurrency"
+       option: "lock_path"
+       value: "/var/lib/manila/tmp"
+
+  - name: Restart manila services
+    shell: systemctl restart openstack-manila\*
+
+- name: Create default share type and point it at ceph backend
+  hosts: undercloud
+  become: True
+  tasks:
+  - name: Create default share type and point it at ceph backend
+    shell: source /home/stack/overcloudrc;  manila type-create default_share_type false; manila type-key default_share_type set share_backend_name='ceph_native'
