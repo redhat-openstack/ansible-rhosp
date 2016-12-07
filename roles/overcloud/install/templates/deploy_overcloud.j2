@@ -22,3 +22,4 @@ openstack overcloud deploy --debug \
 {% if dvr is defined and dvr %}
 -e /home/stack/tripleo_heat_templates/environments/neutron-ovs-dvr.yaml \
 {% endif %}
+-e /home/stack/tripleo_heat_templates/environments/manila-cephfsnative-config.yaml
