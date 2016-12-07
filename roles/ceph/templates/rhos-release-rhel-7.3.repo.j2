@@ -1,0 +1,45 @@
+# end substitution #
+#
+# RHEL 7.3, 7.3.z
+#
+[rhelosp-rhel-7-common]
+name=RHEL 7 Common
+baseurl=http://pulp.dist.prod.ext.phx2.redhat.com/content/dist/rhel/server/7/7Server/$basearch/rh-common/os/
+enabled=1
+gpgcheck=0
+
+[rhelosp-rhel-7.3-server]
+name=Red Hat Enterprise Linux $releasever - $basearch - Server
+baseurl=http://pulp.dist.prod.ext.phx2.redhat.com/content/dist/rhel/server/7/7Server/x86_64/os/
+enabled=1
+gpgcheck=0
+
+[rhelosp-rhel-7.3-server-opt]
+name=Red Hat Enterprise Linux $releasever - $basearch - Server Optional
+baseurl=http://pulp.dist.prod.ext.phx2.redhat.com/content/dist/rhel/server/7/7Server/x86_64/optional/os/
+enabled=0
+gpgcheck=0
+
+[rhelosp-rhel-7.3-ha]
+name=Red Hat Enterprise Linux $releasever - $basearch - HA
+baseurl=http://pulp.dist.prod.ext.phx2.redhat.com/content/dist/rhel/server/7/7Server/x86_64/highavailability/os/
+enabled=1
+gpgcheck=0
+
+[rhelosp-rhel-7.3-extras]
+name=Red Hat Enterprise Linux $releasever - $basearch - Extras
+baseurl=http://pulp.dist.prod.ext.phx2.redhat.com/content/dist/rhel/server/7/7Server/x86_64/extras/os/
+enabled=1
+gpgcheck=0
+
+[rhelosp-rhel-7.3-fast-datapth]
+name=Fast Datapath packages
+baseurl=http://pulp.dist.prod.ext.phx2.redhat.com/content/dist/rhel/server/7/7Server/x86_64/fast-datapath/os/
+enabled=1
+gpgcheck=0
+
+[rhelosp-rhel-7.3-pre-release]
+name=pre-release rhel 7.3 content
+baseurl=http://rhos-release.virt.bos.redhat.com/repos/osp10-prerelease/latest/
+enabled=1
+gpgcheck=0
