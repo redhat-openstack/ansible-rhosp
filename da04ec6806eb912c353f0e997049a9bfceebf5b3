@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1ab14d0d_4448df5b",
+        "filename": "roles/overcloud/setup/tasks/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1004788
+      },
+      "writtenOn": "2016-12-20T15:37:51Z",
+      "side": 1,
+      "message": "missing ;",
+      "range": {
+        "startLine": 12,
+        "startChar": 90,
+        "endLine": 12,
+        "endChar": 91
+      },
+      "revId": "da04ec6806eb912c353f0e997049a9bfceebf5b3",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
