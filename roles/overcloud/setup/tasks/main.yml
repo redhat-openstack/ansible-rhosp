@@ -7,6 +7,9 @@
   #    dest=/home/stack/overcloud-settings.yaml
   #    mode=0755
 
+- name: Enable HA for DVR environments
+  shell: sed -i -e "s/NeutronL3HA: false/NeutronL3HA: true/g" /home/stack/tripleo_heat_templates/environments/neutron-ovs-dvr.yaml
+
 - name: Create baremetal flavor for overcloud nodes deployment
   shell: >
     source /home/stack/stackrc;
