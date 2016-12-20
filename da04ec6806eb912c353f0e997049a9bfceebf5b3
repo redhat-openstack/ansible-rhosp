@@ -22,6 +22,30 @@
       "revId": "da04ec6806eb912c353f0e997049a9bfceebf5b3",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1ab14d0d_64e51ba7",
+        "filename": "roles/overcloud/setup/tasks/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1004066
+      },
+      "writtenOn": "2016-12-20T18:41:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1ab14d0d_4448df5b",
+      "range": {
+        "startLine": 12,
+        "startChar": 90,
+        "endLine": 12,
+        "endChar": 91
+      },
+      "revId": "da04ec6806eb912c353f0e997049a9bfceebf5b3",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
     }
   ]
 }
