@@ -1,11 +1,9 @@
 - name: Copy TripleO Heat templates to stack home dir
   shell: "cp -a /usr/share/openstack-tripleo-heat-templates /home/stack/tripleo_heat_templates"
 
-  #- name: Deploy overcloud settings file
-  #  template:
-  #    src=overcloud-settings.j2
-  #    dest=/home/stack/overcloud-settings.yaml
-  #    mode=0755
+- name: Enable HA for DVR environments
+  shell: "sed -i -e 's/NeutronL3HA: false/NeutronL3HA: true/g' /home/stack/tripleo_heat_templates/environments/neutron-ovs-dvr.yaml"
+  when: dvr is defined and dvr
 
 - name: Create baremetal flavor for overcloud nodes deployment
   shell: >
