@@ -22,6 +22,13 @@
     source /home/stack/stackrc;
     python /home/stack/get-overcloud-nodes.py
   register: overcloud_nodes
+  until: overcloud_nodes.stdout.find("overcloud") != -1
+  retries: 10
+  delay: 5
+
+- name: Print overcloud nodes
+  debug:
+    msg="Overcloud nodes are {{ overcloud_nodes.stdout }}"
 
 # Add each overcloud node to its type of group
 - name: Add each controller to in-memory inventory
@@ -33,7 +40,7 @@
     ansible_ssh_user="heat-admin"
     ansible_ssh_private_key_file="{{ inventory_dir }}/files/id_rsa_overcloud"
   ignore_errors: true
-  with_dict: overcloud_nodes.stdout
+  with_dict: "{{ overcloud_nodes.stdout }}"
   when: item.key.startswith('overcloud-controller')
 
 - name: Add each compute node to in-memory inventory
@@ -45,7 +52,7 @@
     ansible_ssh_user="heat-admin"
     ansible_ssh_private_key_file="{{ inventory_dir }}/files/id_rsa_overcloud"
   ignore_errors: true
-  with_dict: overcloud_nodes.stdout
+  with_dict: "{{ overcloud_nodes.stdout }}"
   when: item.key.startswith('overcloud-compute') or item.key.startswith('overcloud-novacompute')
 
 - name: Add each ceph node to in-memory inventory
@@ -57,7 +64,7 @@
     ansible_ssh_user="heat-admin"
     ansible_ssh_private_key_file="{{ inventory_dir }}/files/id_rsa_overcloud"
   ignore_errors: true
-  with_dict: overcloud_nodes.stdout
+  with_dict: "{{ overcloud_nodes.stdout }}"
   when: item.key.startswith('overcloud-ceph')
 
 - name: Add each swift node to in-memory inventory
@@ -69,5 +76,5 @@
     ansible_ssh_user="heat-admin"
     ansible_ssh_private_key_file="{{ inventory_dir }}/files/id_rsa_overcloud"
   ignore_errors: true
-  with_dict: overcloud_nodes.stdout
+  with_dict: "{{ overcloud_nodes.stdout }}"
   when: item.key.startswith('overcloud-objectstorage')
