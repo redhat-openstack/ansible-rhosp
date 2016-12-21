@@ -22,6 +22,14 @@
     source /home/stack/stackrc;
     python /home/stack/get-overcloud-nodes.py
   register: overcloud_nodes
+  until: overcloud_nodes.stdout.find("overcloud") != -1
+  retries: 10
+  delay: 5
+
+- name: Print overcloud nodes
+  debug:
+    var: overcloud_nodes
+    verbosity: 2
 
 # Add each overcloud node to its type of group
 - name: Add each controller to in-memory inventory
