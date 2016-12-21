@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1ab14d0d_b3b0038d",
+        "filename": "roles/overcloud/post_installation/tasks/main.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1008329
+      },
+      "writtenOn": "2016-12-21T19:05:15Z",
+      "side": 1,
+      "message": "My impression is that syntax is broken. Shell does not seem to support retries. http://docs.ansible.com/ansible/playbooks_loops.html",
+      "revId": "2239d32b40c9f27e86afa921a5075caf19e0b8b2",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
