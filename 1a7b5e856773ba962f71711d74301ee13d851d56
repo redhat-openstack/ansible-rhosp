@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "fabf19d9_9aebedb0",
+        "filename": "ansible-rhosp.yml",
+        "patchSetId": 5
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1006664
+      },
+      "writtenOn": "2016-12-22T15:28:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "baa041b7_4400a535",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 23
+      },
+      "revId": "1a7b5e856773ba962f71711d74301ee13d851d56",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "baa041b7_e4dfb9d4",
         "filename": "roles/overcloud/setup/tasks/main.yml",
         "patchSetId": 5
@@ -36,6 +60,30 @@
       "writtenOn": "2016-11-10T09:56:29Z",
       "side": 1,
       "message": "Nit: capital letter",
+      "range": {
+        "startLine": 4,
+        "startChar": 8,
+        "endLine": 4,
+        "endChar": 9
+      },
+      "revId": "1a7b5e856773ba962f71711d74301ee13d851d56",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fabf19d9_7ad139fb",
+        "filename": "roles/overcloud/setup/tasks/main.yml",
+        "patchSetId": 5
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1006664
+      },
+      "writtenOn": "2016-12-22T15:28:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "baa041b7_e4dfb9d4",
       "range": {
         "startLine": 4,
         "startChar": 8,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "fabf19d9_5ace755b",
+        "filename": "roles/overcloud/setup/tasks/main.yml",
+        "patchSetId": 5
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1006664
+      },
+      "writtenOn": "2016-12-22T15:28:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "baa041b7_04e3bda5",
+      "range": {
+        "startLine": 4,
+        "startChar": 0,
+        "endLine": 8,
+        "endChar": 16
+      },
+      "revId": "1a7b5e856773ba962f71711d74301ee13d851d56",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "baa041b7_64d3a9d6",
         "filename": "roles/overcloud/setup/templates/ceph.yaml.j2",
         "patchSetId": 5
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "fabf19d9_3adbc11d",
+        "filename": "roles/overcloud/setup/templates/ceph.yaml.j2",
+        "patchSetId": 5
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1006664
+      },
+      "writtenOn": "2016-12-22T15:28:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "baa041b7_64d3a9d6",
+      "range": {
+        "startLine": 9,
+        "startChar": 20,
+        "endLine": 9,
+        "endChar": 21
+      },
+      "revId": "1a7b5e856773ba962f71711d74301ee13d851d56",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "baa041b7_44d9c5f3",
         "filename": "roles/overcloud/setup/templates/ceph.yaml.j2",
         "patchSetId": 5
@@ -105,6 +201,30 @@
       "writtenOn": "2016-11-10T09:56:29Z",
       "side": 1,
       "message": "blank lines",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 0
+      },
+      "revId": "1a7b5e856773ba962f71711d74301ee13d851d56",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fabf19d9_1ad8fd1c",
+        "filename": "roles/overcloud/setup/templates/ceph.yaml.j2",
+        "patchSetId": 5
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1006664
+      },
+      "writtenOn": "2016-12-22T15:28:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "baa041b7_44d9c5f3",
       "range": {
         "startLine": 35,
         "startChar": 0,
