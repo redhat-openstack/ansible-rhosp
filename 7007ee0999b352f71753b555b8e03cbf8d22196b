@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1ab14d0d_c91080ab",
+        "filename": "roles/overcloud/setup/tasks/main.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1004788
+      },
+      "writtenOn": "2016-12-22T10:26:36Z",
+      "side": 1,
+      "message": "if the goal is to merge this at the end, then it should be a separate task that enabled only if it\u0027s a DVR deployment",
+      "range": {
+        "startLine": 12,
+        "startChar": 3,
+        "endLine": 12,
+        "endChar": 92
+      },
+      "revId": "7007ee0999b352f71753b555b8e03cbf8d22196b",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
