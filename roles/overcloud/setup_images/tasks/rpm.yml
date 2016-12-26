@@ -16,10 +16,39 @@
     - 'ironic-python-agent'
     - 'overcloud-full'
 
+- name: Happy new year
+  become: yes
+  shell: >
+    sudo yum install -y createrepo;
+    mkdir /patched_rpms;
+    chmod 777 /patched_rpms;
+
+- name: Download OVS 2.6                                                         
+  become: yes                                                                   
+  shell: >
+    cd /patched_rpms;
+    wget "{{ item }}";                                                           
+  with_items:
+    - "http://mirror.centos.org/centos/7/os/x86_64/Packages/c-ares-1.10.0-3.el7.x86_64.rpm"
+    - "http://mirror.centos.org/centos/7/extras/x86_64/Packages/python-gevent-1.0-2.el7.x86_64.rpm"
+    - "https://bitbucket.org/abregman/bregman-rpms/downloads/python-tinyrpc-0.5-3.el7ost.noarch.rpm"
+    - "https://bitbucket.org/abregman/bregman-rpms/downloads/python-ryu-4.9-2.1.el7ost.noarch.rpm"                                                            
+    - "https://bitbucket.org/abregman/bregman-rpms/downloads/python-ryu-common-4.9-2.1.el7ost.noarch.rpm"
+    
+- name: Createrepo
+  become: yes
+  shell: createrepo /patched_rpms
+
 - name: Check if there are patched RPMs
   stat:
     path="/patched_rpms"
   register: patched_rpms
+  
+- name: Setup repository in /etc/yum.repos.d                                    
+  become: yes                                                                   
+  template:                                                                     
+    src='patched_rpms.j2'                                                       
+    dest='/etc/yum.repos.d/patched_rpms.repo'
 
 - name: Install libguestfs-tools for editing the images
   become: yes
