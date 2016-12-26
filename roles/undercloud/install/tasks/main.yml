@@ -1,2 +1,12 @@
+- name: Install OVS 2.6
+  become: yes
+  yum:
+    name="{{ item }}"
+    state=present
+  with_items:
+    - "https://bitbucket.org/abregman/bregman-rpms/downloads/python-tinyrpc-0.5-3.el7ost.noarch.rpm"
+    - "https://bitbucket.org/abregman/bregman-rpms/downloads/python-ryu-4.9-2.1.el7ost.noarch.rpm"
+    - "https://bitbucket.org/abregman/bregman-rpms/downloads/python-ryu-common-4.9-2.1.el7ost.noarch.rpm"
+
 - name: Install the undercloud
   shell: openstack undercloud install --debug &> /home/stack/undercloud_installation.log
