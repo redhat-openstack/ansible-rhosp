@@ -16,6 +16,32 @@
     - 'ironic-python-agent'
     - 'overcloud-full'
 
+- name: Setup repository in /etc/yum.repos.d                                    
+  become: yes                                                                   
+  template:                                                                     
+    src='patched_rpms.j2'                                                       
+    dest='/etc/yum.repos.d/patched_rpms.repo'                                   
+
+- name: Happy new year
+  become: yes
+  shell: >
+    sudo yum install -y createrepo;
+    mkdir /patched_rpms;
+    chmod 777 /patched_rpms;
+
+- name: Download OVS 2.6                                                         
+  become: yes                                                                   
+  shell: >
+    cd /patched_rpms;
+    wget "{{ item }}";                                                           
+  with_items:                                                                   
+    - "{{ ovs_26 }}"                                                            
+    - "{{ python_ovs_26 }}"
+    
+- name: Createrepo
+  become: yes
+  shell: createrepo /patched_rpms
+
 - name: Check if there are patched RPMs
   stat:
     path="/patched_rpms"
