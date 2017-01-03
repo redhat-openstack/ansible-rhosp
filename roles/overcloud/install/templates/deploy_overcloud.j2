@@ -19,6 +19,8 @@ openstack overcloud deploy --debug \
 --ntp-server=pool.ntp.org \
 -e /home/stack/user_templates/deployment.yaml \
 -e /home/stack/tripleo_heat_templates/environments/puppet-pacemaker.yaml \
+-e /home/stack/tripleo_heat_templates/environments/neutron-opendaylight-l3.yaml \
+-e /home/stack/odl.yml \
 {% if dvr is defined and dvr %}
 -e /home/stack/tripleo_heat_templates/environments/neutron-ovs-dvr.yaml \
 {% endif %}
