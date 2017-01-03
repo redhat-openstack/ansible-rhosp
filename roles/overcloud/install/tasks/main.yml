@@ -13,6 +13,18 @@
     dest="/home/stack/deploy_overcloud.sh"
     mode=0755
 
+- name: Create odl yml
+  template:
+    src="odl.j2"
+    dest="/home/stack/odl.yml"
+    mode=0755
+
+- name: Deploy overcloud roles
+  file:
+    path=/home/stack/overcloud_roles.yaml
+    state=touch
+    mode=0755
+
 - name: Deploy Overcloud
   shell: >
     source /home/stack/stackrc;
