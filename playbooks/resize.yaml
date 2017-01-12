@@ -1,0 +1,21 @@
+- name: resize lvm
+  hosts: controller
+  become: True
+  tasks:
+     - command: chdir=/var/lib/cinder/ {{ item }}
+       with_items:
+          - df -h
+          - dd if=/dev/zero of=cinder-volumes2 bs=102400 count=409600
+          - df -h
+          - losetup /dev/loop3 /var/lib/cinder/cinder-volumes2
+          - losetup -l
+          - pvdisplay
+          - vgdisplay
+          - pvcreate /dev/loop3
+          - vgextend cinder-volumes /dev/loop3
+          - pvdisplay
+          - vgdisplay
+          - ps -ef | grep cinder
+          - systemctl restart openstack-cinder-*
+          - ps -ef | grep cinder
+
