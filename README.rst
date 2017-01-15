@@ -1,9 +1,15 @@
 Ansible-RHOSP
 =============
 
-Ansible roles for installing RHOSP 10 on existing TripleO setup.
+Ansible roles for installing RHOSP 11 on existing TripleO setup.
 
 To install different version, checkout one of the existing branches:
+
+To install RHOSP 10::
+    git checkout stable/10
+
+To install RHOSP 9::
+    git checkout stable/9
 
 To install RHOSP 8::
     git checkout stable/8
@@ -29,7 +35,7 @@ Make sure you have password-less connection to the undercloud host.
 Usage
 -----
 
-Install RHOSP 10
+Install RHOSP 11
 ^^^^^^^^^^^^^^^^
 #. Specify the number of nodes you would like to install in ansible-rhosp.yml::
 
