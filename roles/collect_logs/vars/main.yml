@@ -10,3 +10,5 @@ archives_locations:
   - /var/log/sahara
   - /home/stack/overcloud_deployment.log
   - /home/stack/undercloud_installation.log
+  - /home/stack/tempest/.testrepository
+  - /home/stack/tempest/etc/tempest.conf
