@@ -1,0 +1,9 @@
+#This file is an example of an environment file for defining the isolated
+#networks and related parameters.
+resource_registry:
+  # Network Interface templates to use (these files must exist)
+  OS::TripleO::BlockStorage::Net::SoftwareConfig: OS::Heat::None
+  OS::TripleO::Compute::Net::SoftwareConfig: compute.yaml
+  OS::TripleO::Controller::Net::SoftwareConfig: controller.yaml
+  OS::TripleO::ObjectStorage::Net::SoftwareConfig: OS::Heat::None
+  OS::TripleO::CephStorage::Net::SoftwareConfig: OS::Heat::None

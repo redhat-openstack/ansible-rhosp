@@ -7,6 +7,16 @@
   retries: 10
   delay: 10
 
+- name: Set TripleO enviornment files
+  become: yes
+  copy:
+    src="{{ item }}"
+    dest="/home/stack/user_templates/{{ item }}"
+  with_items:
+    - 'network-environment.yaml'
+    - 'compute.yaml'
+    - 'controller.yaml'
+
 - name: Create overcloud deploy script
   template:
     src="deploy_overcloud.j2"

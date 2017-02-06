@@ -17,6 +17,7 @@ openstack overcloud deploy --debug \
 --neutron-public-interface=nic1 \
 --timeout=200 \
 --ntp-server=pool.ntp.org \
+-e /home/stack/user_templates/network-environment.yaml \
 -e /home/stack/user_templates/deployment.yaml \
 -e /home/stack/tripleo_heat_templates/environments/puppet-pacemaker.yaml \
 {% if dvr is defined and dvr %}
