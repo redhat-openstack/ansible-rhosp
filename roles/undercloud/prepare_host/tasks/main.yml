@@ -24,7 +24,7 @@
   shell: "yum localinstall -y http://rhos-release.virt.bos.redhat.com/repos/rhos-release/rhos-release-latest.noarch.rpm"
 
 - name: Install RHOSP 10 puddle repos (execute rhos-release)
-  shell: rhos-release 10-director
+  shell: rhos-release 10 -p 2017-02-15.1
 
 - name: Update all packages on undercloud
   yum:
