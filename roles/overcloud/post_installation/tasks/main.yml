@@ -24,7 +24,7 @@
   register: overcloud_nodes
   until: overcloud_nodes.stdout.find("overcloud") != -1
   retries: 10
-  delay: 5
+  delay: 15
 
 - name: Print overcloud nodes
   debug:
