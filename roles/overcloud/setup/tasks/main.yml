@@ -36,7 +36,7 @@
 - name: Set nameserver for overcloud subnet
   shell: >
     source /home/stack/stackrc;
-    neutron subnet-update {{ subnet_uuid.stdout }} --dns-nameserver {{ nameserver.stdout }}
+    neutron subnet-update {{ subnet_uuid.stdout }} --dns-nameserver {{ nameserver.stdout }} {{ subnet_uuid.stdout }}
 
 - name: Change MTU for overcloud nics
   become: yes
