@@ -24,7 +24,7 @@
 - name: Register subnet uuid
   shell: >
     source /home/stack/stackrc;
-    neutron subnet-list | grep 192.0.2 | sed -e 's/|//g' | awk '{print $1}'
+    openstack subnet list | grep 192 | sed -e 's/|//g' | awk '{print $1}'
   register: subnet_uuid
 
 - name: Register undercloud nameserver
