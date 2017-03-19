@@ -1,0 +1,7 @@
+Verified+1: Arie Bregman <abregman@redhat.com>
+Code-Review+2: David Sariel <dsariel@redhat.com>
+Submitted-by: David Sariel <dsariel@redhat.com>
+Submitted-at: Sun, 19 Mar 2017 10:44:42 -0400
+Reviewed-on: https://review.gerrithub.io/353434
+Project: redhat-openstack/ansible-rhosp
+Branch: refs/heads/stable/11
