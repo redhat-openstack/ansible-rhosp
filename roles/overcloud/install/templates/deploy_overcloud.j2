@@ -12,9 +12,6 @@ openstack overcloud deploy --debug \
 --ceph-storage-flavor baremetal \
 --block-storage-flavor baremetal \
 --swift-storage-flavor baremetal \
---neutron-network-type vxlan \
---neutron-tunnel-types vxlan \
---neutron-public-interface=nic1 \
 --timeout=200 \
 --ntp-server=pool.ntp.org \
 -e /home/stack/user_templates/deployment.yaml \
