@@ -1,7 +1,7 @@
 - name: Regenerate inventory file
   template:
     src=inventory.j2
-    dest="{{ inventory_dir }}/{{ inventory_file }}"
+    dest="{{ inventory_dir }}/{{ inventory_file | basename }}"
 
 - name: Regenerate ssh.config.ansible
   template:
