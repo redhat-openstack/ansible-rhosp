@@ -1,0 +1,7 @@
+Code-Review+2: David Sariel <dsariel@redhat.com>
+Verified+1: David Sariel <dsariel@redhat.com>
+Submitted-by: David Sariel <dsariel@redhat.com>
+Submitted-at: Mon, 27 Mar 2017 18:00:39 -0400
+Reviewed-on: https://review.gerrithub.io/354635
+Project: redhat-openstack/ansible-rhosp
+Branch: refs/heads/stable/11
